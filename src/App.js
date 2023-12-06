@@ -110,8 +110,8 @@ function App() {
                             <span className='text-lg pl-1'>Linkedin</span>
                           </h5>
                           <div className='flex'>
-                            <div className='border flex w-3/4 mr-2'>
-                              <p className="text-sm text-gray-500 p-2">
+                            <div className='border flex w-3/4 mr-2 p-2'>
+                              <p className="text-sm text-gray-500">
                                 This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.
                               </p>
                               <svg className="h-14 w-14 text-red-500" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
@@ -137,8 +137,8 @@ function App() {
                             <span className='text-lg pl-1'>Tweet</span>
                           </h5>
                           <div className='flex'>
-                            <div className='border flex w-3/4 mr-2'>
-                              <p className="text-sm text-gray-500 p-2">
+                            <div className='border flex w-3/4 mr-2 p-2'>
+                              <p className="text-sm text-gray-500">
                                 This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.
                               </p>
                               <svg className="h-14 w-14 text-red-500" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
