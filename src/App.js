@@ -60,7 +60,10 @@ function App() {
         <div className='article shadow-xl max-w-xl mb-4 flex items-start justify-between'>
           <div className='flex flex-col items-start justify-between'>
             <div className='article-title'>Title 3. Tweet</div>
-            <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.</div>
+            <div className='flex items-center'>
+              <img src="./pic.png" className='w-20 h-20 rounded-full border-2'/>
+              <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.</div>
+            </div>
             <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' className='article-link' target='_blank'>See Tweet</a>
           </div>
           <Button className='bg-transparent hover:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 border border-blue-500 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
@@ -90,7 +93,7 @@ function App() {
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all lg:my-8 lg:w-full lg:max-w-2xl">
                   <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                     <div className="sm:flex sm:items-start">
                       <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
@@ -117,7 +120,7 @@ function App() {
                               <p className="text-sm text-gray-500">
                                 This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.
                               </p>
-                              <svg className="h-14 w-14 text-red-500" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+                              <svg className="h-14 w-14 text-red-500 cursor-pointer" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
                             </div>
                             <div className='border flex w-1/4' style={{ backgroundImage: `url("./pic.png")`, backgroundSize: "cover", backgroundRepeat: 'no-repeat' }}>
                             </div>
@@ -136,10 +139,13 @@ function App() {
                           </h5>
                           <div className='flex'>
                             <div className='border flex w-3/4 mr-2 p-2'>
-                              <p className="text-sm text-gray-500">
-                                This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.
-                              </p>
-                              <svg className="h-14 w-14 text-red-500" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+                              <div className='flex items-center'>
+                                <img src="./pic.png" className='w-20 h-20 rounded-full border-2 mr-2'/>
+                                <p className="text-sm text-gray-500">
+                                  This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.
+                                </p>
+                              </div>
+                              <svg className="h-14 w-14 text-red-500 cursor-pointer" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
                             </div>
                           </div>
 
