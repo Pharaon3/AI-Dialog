@@ -53,7 +53,7 @@ function App() {
           <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.</div>
           <a href='https://docs.material-tailwind.com/demo.mp4' className='article-link' target='_blank'>Watch Video</a>
         </div>
-        <Button className='bg-transparent hover:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 border border-blue-500 hover:border-transparent rounded'>⭐</Button>
+        <Button className='bg-transparent hover:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 border border-blue-500 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
       </div>
       <div className='article shadow-xl max-w-xl mb-4 flex items-start justify-between'>
         <div className='flex flex-col items-start justify-between'>
@@ -61,7 +61,7 @@ function App() {
           <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.</div>
           <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' className='article-link' target='_blank'>See Tweet</a>
         </div>
-        <Button className='bg-transparent hover:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 border border-blue-500 hover:border-transparent rounded'>⭐</Button>
+        <Button className='bg-transparent hover:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 border border-blue-500 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
       </div>
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
