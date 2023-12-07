@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { Fragment, useState, forwardRef, useRef } from 'react';
+import { Fragment, useState, forwardRef, useRef, useEffect } from 'react';
 import DatePicker from "react-datepicker";
 import Button from 'react-bootstrap/Button';
 import { Dialog, Transition } from '@headlessui/react'
@@ -12,7 +12,7 @@ import "react-datepicker/dist/react-datepicker.css";
 function App() {
   const [startDate, setStartDate] = useState(new Date());
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
-    <button className="example-custom-input bg-sky-300 p-2 rounded-full" onClick={onClick} ref={ref}>
+    <button className="example-custom-input bg-sky-300 p-2 rounded-full shadow-lg" onClick={onClick} ref={ref}>
       {value}
     </button>
   ));
@@ -21,6 +21,19 @@ function App() {
   }
   const [open, setOpen] = useState(false)
   const cancelButtonRef = useRef(null)
+  const [articleData, setArticleData] = useState([]);
+
+  useEffect(() => {
+    fetch('./aiPrediction.json')
+      .then(response => response.text())
+      .then(text => {
+        // Parse the CSV data
+        // You can use a library like PapaParse for more complex CSV parsing
+        const rows = JSON.parse(text);
+        setArticleData(rows);
+        console.log("row: ", rows);
+      });
+  }, []);
   return (
     <div className="App flex justify-center flex-col max-w-4xl">
       <header className="top-header">
@@ -44,31 +57,27 @@ function App() {
             <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one....</div>
             <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' className='article-link' target='_blank'>Read Article</a>
           </div>
-          <Button className='bg-sky-100 hover:bg-sky-400 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
+          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
         </div>
         <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
           <div className='flex flex-col items-start justify-between'>
             <div className='article-title'>Title 2. Video</div>
-            {/* <video className="h-full w-full rounded-lg w-3/4" controls>
-              <source src="https://docs.material-tailwind.com/demo.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video> */}
-            <YouTube videoId="6tLxnTLqB5Y"/>
-            <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.....</div>
-            <a href='https://docs.material-tailwind.com/demo.mp4' className='article-link' target='_blank'>Watch Video</a>
+            <YouTube videoId="grmudb9FQpI" />
+            <div className='article-content'>The Field of artificial intelligence (AI) is emerging and evolving faster than ever. Here, we look at some of the major trends in the field ...</div>
+            <a href='https://www.youtube.com/watch?v=grmudb9FQpI' className='article-link' target='_blank'>Watch Video</a>
           </div>
-          <Button className='bg-sky-100 hover:bg-sky-400 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
+          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
         </div>
         <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
           <div className='flex flex-col items-start justify-between'>
             <div className='article-title'>Title 3. Tweet</div>
             <div className='flex items-center'>
-              <img src="./pic.png" className='w-20 h-20 rounded-full border-2 object-cover'/>
+              <img src="./pic.png" className='w-20 h-20 rounded-full border-2 object-cover' />
               <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.....</div>
             </div>
             <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' className='article-link' target='_blank'>See Tweet</a>
           </div>
-          <Button className='bg-sky-100 hover:bg-sky-400 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
+          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
         </div>
         <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
           <div className='flex flex-col items-start justify-between'>
@@ -78,8 +87,20 @@ function App() {
             </div>
             <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' className='article-link' target='_blank'>See In</a>
           </div>
-          <Button className='bg-sky-100 hover:bg-sky-400 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
+          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
         </div>
+        {articleData.map(data => {
+          return (
+            <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
+              <div className='flex flex-col items-start justify-between'>
+                <div className='article-title'>{data.title}</div>
+                <div className='article-content'>{data.content}</div>
+                <a href={data.link} className='article-link' target='_blank'>Read Article</a>
+              </div>
+              <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
+            </div>
+          )
+        })}
       </div>
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
@@ -158,7 +179,7 @@ function App() {
                           <div className='flex'>
                             <div className='border flex w-3/4 mr-2 p-2'>
                               <div className='flex items-center'>
-                                <img src="./pic.png" className='w-20 h-20 rounded-full border-2 mr-2 object-cover'/>
+                                <img src="./pic.png" className='w-20 h-20 rounded-full border-2 mr-2 object-cover' />
                                 <p className="text-sm text-gray-500">
                                   This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one....
                                 </p>

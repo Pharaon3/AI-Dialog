@@ -17,6 +17,7 @@ import re
 import csv
 from datetime import datetime
 from datetime import date
+import json
 
 options = webdriver.ChromeOptions()
 # options.add_argument('headless')
@@ -32,18 +33,18 @@ with open('AI prediction Links.csv', 'r') as file:
         links.append(row[0])  # Assuming the links are in the first column
         print("link" + row[0])
 driver = webdriver.Chrome()  # Replace with the appropriate webdriver for your browser
-with open('AI prediction.csv', mode='w', newline='') as file:
-    writer = csv.writer(file)
-    time.sleep(0.3)
-    for link in links:
-        driver.get(link)
-        time.sleep(3)
-        title = driver.find_elements(By.CSS_SELECTOR, "h1.ng-binding")
-        content = driver.find_elements(By.CSS_SELECTOR, "div.prediction-section-resolution-criteria")
-        print("Title: " + title[0].text)
-        print("Content: " + content[0].text)
-        writer.writerow([title[0].text, content[0].text])
-        # Use Selenium to interact with the webpage and scrape the data you need
-    driver.quit()
+outData = []
+for link in links:
+    driver.get(link)
+    time.sleep(3)
+    title = driver.find_elements(By.CSS_SELECTOR, "h1.ng-binding")
+    content = driver.find_elements(By.CSS_SELECTOR, "div.prediction-section-resolution-criteria")
+    print("Title: " + title[0].text)
+    print("Content: " + content[0].text)
+    outData.append({"title": title[0].text, "content": content[0].text, "link": link})
+    # Use Selenium to interact with the webpage and scrape the data you need
+with open("aiPrediction.json", "w") as file:
+    json.dump(outData, file)
+driver.quit()
 
 
