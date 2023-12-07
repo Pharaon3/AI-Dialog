@@ -29,6 +29,7 @@ function App() {
       .then(text => {
         // Parse the CSV data
         // You can use a library like PapaParse for more complex CSV parsing
+        if(text[0] == "<") return;
         const rows = JSON.parse(text);
         setArticleData(rows);
         console.log("row: ", rows);
