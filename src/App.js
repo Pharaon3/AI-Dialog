@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import Button from 'react-bootstrap/Button';
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
+import YouTube from 'react-youtube';
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -43,19 +44,20 @@ function App() {
             <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one....</div>
             <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' className='article-link' target='_blank'>Read Article</a>
           </div>
-          <Button className='bg-transparent hover:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 border border-blue-500 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
+          <Button className='bg-sky-100 hover:bg-sky-400 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
         </div>
         <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
           <div className='flex flex-col items-start justify-between'>
             <div className='article-title'>Title 2. Video</div>
-            <video className="h-full w-full rounded-lg w-3/4" controls>
+            {/* <video className="h-full w-full rounded-lg w-3/4" controls>
               <source src="https://docs.material-tailwind.com/demo.mp4" type="video/mp4" />
               Your browser does not support the video tag.
-            </video>
+            </video> */}
+            <YouTube videoId="6tLxnTLqB5Y"/>
             <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.....</div>
             <a href='https://docs.material-tailwind.com/demo.mp4' className='article-link' target='_blank'>Watch Video</a>
           </div>
-          <Button className='bg-transparent hover:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 border border-blue-500 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
+          <Button className='bg-sky-100 hover:bg-sky-400 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
         </div>
         <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
           <div className='flex flex-col items-start justify-between'>
@@ -66,7 +68,17 @@ function App() {
             </div>
             <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' className='article-link' target='_blank'>See Tweet</a>
           </div>
-          <Button className='bg-transparent hover:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 border border-blue-500 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
+          <Button className='bg-sky-100 hover:bg-sky-400 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
+        </div>
+        <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
+          <div className='flex flex-col items-start justify-between'>
+            <div className='article-title'>Title 4. Linkedin</div>
+            <div className='flex items-center'>
+              <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.....</div>
+            </div>
+            <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' className='article-link' target='_blank'>See In</a>
+          </div>
+          <Button className='bg-sky-100 hover:bg-sky-400 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
         </div>
       </div>
       <Transition.Root show={open} as={Fragment}>
