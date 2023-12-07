@@ -6,18 +6,50 @@ import Button from 'react-bootstrap/Button';
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import YouTube from 'react-youtube';
-
 import "react-datepicker/dist/react-datepicker.css";
 
 function App() {
   const [startDate, setStartDate] = useState(new Date());
+  const [linkedinContent, setLinkedinContent] = useState("");
+  const [tweetContent, setTweetContent] = useState("");
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
     <button className="example-custom-input bg-sky-300 p-2 rounded-full shadow-lg" onClick={onClick} ref={ref}>
       {value}
     </button>
   ));
-  const openModal = () => {
-    setOpen(true);
+  const openModal = (index) => {
+    console.log("articleData: ", articleData[index].content)
+    fetch('http://localhost:5000/api/getLinkedin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ "title": articleData[index].title, "content": articleData[index].content })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("response data: ", data);
+        setLinkedinContent(data?.content);
+        fetch('http://localhost:5000/api/getTwitter', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ "title": articleData[index].title, "content": articleData[index].content })
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log("response data: ", data);
+            setTweetContent(data?.content);
+            setOpen(true);
+          })
+          .catch(error => {
+            // Handle any errors
+          });
+      })
+      .catch(error => {
+        // Handle any errors
+      });
   }
   const [open, setOpen] = useState(false)
   const cancelButtonRef = useRef(null)
@@ -29,11 +61,12 @@ function App() {
       .then(text => {
         // Parse the CSV data
         // You can use a library like PapaParse for more complex CSV parsing
-        if(text[0] == "<") return;
+        if (text[0] == "<") return;
         const rows = JSON.parse(text);
         setArticleData(rows);
         console.log("row: ", rows);
       });
+
   }, []);
   return (
     <div className="App flex justify-center flex-col max-w-4xl">
@@ -90,15 +123,15 @@ function App() {
           </div>
           <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
         </div>
-        {articleData.map(data => {
+        {articleData.map((data, index) => {
           return (
-            <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
+            <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"article-" + index}>
               <div className='flex flex-col items-start justify-between'>
                 <div className='article-title'>{data.title}</div>
                 <div className='article-content'>{data.content}</div>
                 <a href={data.link} className='article-link' target='_blank'>Read Article</a>
               </div>
-              <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
+              <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openModal(index)}>⭐</Button>
             </div>
           )
         })}
@@ -157,10 +190,12 @@ function App() {
                           </h5>
                           <div className='flex'>
                             <div className='border flex w-3/4 mr-2 p-2'>
-                              <p className="text-sm text-gray-500">
-                                This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one....
+                              <p className="text-sm text-gray-500 w-11/12">
+                                {linkedinContent}
                               </p>
-                              <svg className="h-14 w-14 text-red-500 cursor-pointer" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+                              <div className='w-1/12'>
+                                <svg className="h-8 w-8 text-red-500 cursor-pointer" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+                              </div>
                             </div>
                             <div className='border flex w-1/4' style={{ backgroundImage: `url("./pic.png")`, backgroundSize: "cover", backgroundRepeat: 'no-repeat' }}>
                             </div>
@@ -181,11 +216,13 @@ function App() {
                             <div className='border flex w-3/4 mr-2 p-2'>
                               <div className='flex items-center'>
                                 <img src="./pic.png" className='w-20 h-20 rounded-full border-2 mr-2 object-cover' />
-                                <p className="text-sm text-gray-500">
-                                  This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one....
+                                <p className="text-sm text-gray-500 w-11/12">
+                                  {tweetContent}
                                 </p>
                               </div>
-                              <svg className="h-14 w-14 text-red-500 cursor-pointer" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+                              <div className='w-1/12'>
+                                <svg className="h-8 w-8 text-red-500 cursor-pointer" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+                              </div>
                             </div>
                           </div>
 
