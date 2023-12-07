@@ -37,7 +37,7 @@ function App() {
         <div>
           <div className='page-title'>AI News Web Scraper</div>
         </div>
-        <div className='article shadow-xl max-w-xl mb-4 flex items-start justify-between'>
+        <div className='article shadow-xl max-w-2xl mb-4 flex items-start justify-between'>
           <div className='flex flex-col items-start justify-between'>
             <div className='article-title'>When will the first general AI system be devised, tested, and publicly announced?</div>
             <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.</div>
@@ -45,7 +45,7 @@ function App() {
           </div>
           <Button className='bg-transparent hover:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 border border-blue-500 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
         </div>
-        <div className='article shadow-xl max-w-xl mb-4 flex items-start justify-between'>
+        <div className='article shadow-xl max-w-2xl mb-4 flex items-start justify-between'>
           <div className='flex flex-col items-start justify-between'>
             <div className='article-title'>Title 2. Video</div>
             <video className="h-full w-full rounded-lg w-3/4" controls>
@@ -57,11 +57,11 @@ function App() {
           </div>
           <Button className='bg-transparent hover:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 border border-blue-500 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
         </div>
-        <div className='article shadow-xl max-w-xl mb-4 flex items-start justify-between'>
+        <div className='article shadow-xl max-w-2xl mb-4 flex items-start justify-between'>
           <div className='flex flex-col items-start justify-between'>
             <div className='article-title'>Title 3. Tweet</div>
             <div className='flex items-center'>
-              <img src="./pic.png" className='w-20 h-20 rounded-full border-2'/>
+              <img src="./pic.png" className='w-20 h-20 rounded-full border-2 object-cover'/>
               <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.</div>
             </div>
             <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' className='article-link' target='_blank'>See Tweet</a>
@@ -140,7 +140,7 @@ function App() {
                           <div className='flex'>
                             <div className='border flex w-3/4 mr-2 p-2'>
                               <div className='flex items-center'>
-                                <img src="./pic.png" className='w-20 h-20 rounded-full border-2 mr-2'/>
+                                <img src="./pic.png" className='w-20 h-20 rounded-full border-2 mr-2 object-cover'/>
                                 <p className="text-sm text-gray-500">
                                   This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.
                                 </p>
