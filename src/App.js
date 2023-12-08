@@ -7,11 +7,14 @@ import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import YouTube from 'react-youtube';
 import "react-datepicker/dist/react-datepicker.css";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 function App() {
   const [startDate, setStartDate] = useState(new Date());
   const [linkedinContent, setLinkedinContent] = useState("");
   const [tweetContent, setTweetContent] = useState("");
+  const [linkedinCopy, setLinkedinCopy] = useState(false);
+  const [tweetCopy, setTweetCopy] = useState(false);
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
     <button className="example-custom-input bg-sky-300 p-2 rounded-full shadow-lg" onClick={onClick} ref={ref}>
       {value}
@@ -45,11 +48,28 @@ function App() {
           })
           .catch(error => {
             // Handle any errors
+            setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
+            setOpen(true);
           });
       })
       .catch(error => {
         // Handle any errors
+        setLinkedinContent("This is Linkedin content. There's a problem connecting backend or openai to generate Linkedin Post content.");
+        setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
+        setOpen(true);
       });
+  };
+  function copyLinkedin() {
+    setLinkedinCopy(true);
+    setTimeout(() => {
+      setLinkedinCopy(false);
+    }, 5000);
+  }
+  function copyTweet() {
+    setTweetCopy(true);
+    setTimeout(() => {
+      setTweetCopy(false);
+    }, 5000);
   }
   const [open, setOpen] = useState(false)
   const cancelButtonRef = useRef(null)
@@ -194,7 +214,9 @@ function App() {
                                 {linkedinContent}
                               </p>
                               <div className='w-1/12'>
-                                <svg className="h-8 w-8 text-red-500 cursor-pointer" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+                                <CopyToClipboard text={linkedinContent}>
+                                  <button><svg className="h-8 w-8 text-red-500 cursor-pointer" onClick={copyLinkedin} viewBox="0 0 24 24" fill="none" stroke={linkedinCopy ? "#aaa" : "#666"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg></button>
+                                </CopyToClipboard>
                               </div>
                             </div>
                             <div className='border flex w-1/4' style={{ backgroundImage: `url("./pic.png")`, backgroundSize: "cover", backgroundRepeat: 'no-repeat' }}>
@@ -221,7 +243,9 @@ function App() {
                                 </p>
                               </div>
                               <div className='w-1/12'>
-                                <svg className="h-8 w-8 text-red-500 cursor-pointer" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+                                <CopyToClipboard text={tweetContent}>
+                                  <button><svg className="h-8 w-8 text-red-500 cursor-pointer" onClick={copyTweet} viewBox="0 0 24 24" fill="none" stroke={tweetCopy ? "#aaa" : "#666"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg></button>
+                                </CopyToClipboard>
                               </div>
                             </div>
                           </div>
