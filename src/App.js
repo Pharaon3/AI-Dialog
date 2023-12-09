@@ -75,6 +75,50 @@ function App() {
         setLoading(false);
       });
   };
+  const openDeepmindModal = (index) => {
+    setLoading(true);
+    console.log("articleData: ", deepmindData[index].content)
+    fetch('http://74.208.61.158:5000/api/getLinkedin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ "title": deepmindData[index].title, "content": deepmindData[index].content })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("response data: ", data);
+        setLinkedinContent(data?.content);
+        setLinkedinImage(data?.image[0]?.url);
+        fetch('http://74.208.61.158:5000/api/getTwitter', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ "title": deepmindData[index].title, "content": deepmindData[index].content })
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log("response data: ", data);
+            setTweetContent(data?.content);
+            setOpen(true);
+            setLoading(false);
+          })
+          .catch(error => {
+            // Handle any errors
+            setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
+            setOpen(true);
+            setLoading(false);
+          });
+      })
+      .catch(error => {
+        // Handle any errors
+        setLinkedinContent("This is Linkedin content. There's a problem connecting backend or openai to generate Linkedin Post content.");
+        setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
+        setOpen(true);
+        setLoading(false);
+      });
+  };
   const openYoutubeModal = (index) => {
     setLoading(true);
     console.log("articleData: ", youtubeData[index].label)
@@ -234,12 +278,12 @@ function App() {
             return (
               <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"deepmind-" + index}>
                 <div className='flex flex-col items-start justify-between'>
-                  <div className='article-title'>{data.title}</div>
+                  <div className='article-title'>{data.title?.replace("&amp;", "")}</div>
                   <img src={data.imgSource?.split(",")[0].split(" ")[0]} />
                   <div className='article-content'>{data.content}</div>
                   <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
                 </div>
-                <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openArticleModal(index)}>⭐</Button>
+                <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openDeepmindModal(index)}>⭐</Button>
               </div>
             )
           })}
