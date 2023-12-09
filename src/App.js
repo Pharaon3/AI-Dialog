@@ -19,6 +19,7 @@ function App() {
   const cancelButtonRef = useRef(null)
   const [articleData, setArticleData] = useState([]);
   const [youtubeData, setYoutubeData] = useState([]);
+  const [deepmindData, setDeepmindData] = useState([]);
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
     <button className="example-custom-input bg-sky-300 p-2 rounded-full shadow-lg" onClick={onClick} ref={ref}>
       {value}
@@ -151,6 +152,14 @@ function App() {
         setYoutubeData(rows);
       });
 
+    fetch('./scaned deepmind google.json')
+      .then(response => response.text())
+      .then(text => {
+        if (text[0] === "<") return;
+        const rows = JSON.parse(text);
+        setDeepmindData(rows);
+      });
+
   }, []);
   return (
     <>
@@ -218,6 +227,19 @@ function App() {
                   <a href={data.link} rel="noreferrer" className='article-link' target='_blank'>Watch Video</a>
                 </div>
                 <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openYoutubeModal(index)}>⭐</Button>
+              </div>
+            )
+          })}
+          {deepmindData.map((data, index) => {
+            return (
+              <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"deepmind-" + index}>
+                <div className='flex flex-col items-start justify-between'>
+                  <div className='article-title'>{data.title}</div>
+                  <img src={data.imgSource?.split(",")[0].split(" ")[0]} />
+                  <div className='article-content'>{data.content}</div>
+                  <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
+                </div>
+                <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openArticleModal(index)}>⭐</Button>
               </div>
             )
           })}
@@ -356,7 +378,7 @@ function App() {
           </Dialog>
         </Transition.Root>
       </div>
-      <div className='spinner-wrapper' style={{display : loading ? "flex" : "none"}}>
+      <div className='spinner-wrapper' style={{ display: loading ? "flex" : "none" }}>
         <div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
       </div>
     </>

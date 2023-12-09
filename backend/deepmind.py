@@ -18,6 +18,7 @@ import csv
 from datetime import datetime
 from datetime import date
 import json
+from datetime import datetime
 
 options = webdriver.ChromeOptions()
 # options.add_argument('headless')
@@ -28,12 +29,24 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), opti
 driver.get("https://deepmind.google/")
 time.sleep(3)
 
+current_datetime = datetime.now()
+formatted_datetime = current_datetime.strftime("%Y/%m/%d %H:%M:%S")
+
 outData = []
 elements = driver.find_elements(By.CSS_SELECTOR, "a.glue-card")
 for c in range(0, len(elements)):
-    link = elements[c].get_attribute('href')
-    print("link: " + link)
-    outData.append({"link": link})
+    try:
+        link = elements[c].get_attribute('href')
+        source = elements[c].find_element(By.TAG_NAME, "source").get_attribute('srcset')
+        title = elements[c].find_element(By.CSS_SELECTOR, "p.glue-headline").get_attribute('innerHTML')
+        content = elements[c].find_element(By.CSS_SELECTOR, "p.glue-card__description").get_attribute('innerHTML')
+        print("link: " + link)
+        print("source: " + source)
+        print("title: " + title)
+        print("content: " + content)
+        outData.append({"link": link, "imgSource": source, "title": title, "content": content, "time": formatted_datetime})
+    except:
+        print("error")
 driver.close()
 
 with open("scaned deepmind google.json", "w") as file:
