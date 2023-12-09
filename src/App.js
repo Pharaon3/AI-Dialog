@@ -23,6 +23,12 @@ function App() {
       {value}
     </button>
   ));
+  const openModal = () => {
+    setLinkedinContent("Linkedin Content");
+    setLinkedinImage("");
+    setTweetContent("Tweet Content");
+    setOpen(true);
+  };
   const openArticleModal = (index) => {
     console.log("articleData: ", articleData[index].content)
     fetch('http://74.208.61.158:5000/api/getLinkedin', {
@@ -160,7 +166,7 @@ function App() {
             <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one....</div>
             <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' rel="noreferrer" className='article-link' target='_blank'>Read Article</a>
           </div>
-          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openArticleModal}>⭐</Button>
+          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
         </div>
         <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
           <div className='flex flex-col items-start justify-between'>
@@ -169,7 +175,7 @@ function App() {
             <div className='article-content'>The Field of artificial intelligence (AI) is emerging and evolving faster than ever. Here, we look at some of the major trends in the field ...</div>
             <a href='https://www.youtube.com/watch?v=grmudb9FQpI' rel="noreferrer" className='article-link' target='_blank'>Watch Video</a>
           </div>
-          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openArticleModal}>⭐</Button>
+          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
         </div>
         <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
           <div className='flex flex-col items-start justify-between'>
@@ -180,7 +186,7 @@ function App() {
             </div>
             <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' rel="noreferrer" className='article-link' target='_blank'>See Tweet</a>
           </div>
-          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openArticleModal}>⭐</Button>
+          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
         </div>
         <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
           <div className='flex flex-col items-start justify-between'>
@@ -190,7 +196,7 @@ function App() {
             </div>
             <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' rel="noreferrer" className='article-link' target='_blank'>See In</a>
           </div>
-          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openArticleModal}>⭐</Button>
+          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
         </div>
         {youtubeData.map((data, index) => {
           return (
