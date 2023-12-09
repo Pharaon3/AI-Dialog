@@ -1,10 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import { Fragment, useState, forwardRef, useRef, useEffect } from 'react';
 import DatePicker from "react-datepicker";
 import Button from 'react-bootstrap/Button';
 import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import YouTube from 'react-youtube';
 import "react-datepicker/dist/react-datepicker.css";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -12,6 +10,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 function App() {
   const [startDate, setStartDate] = useState(new Date());
   const [linkedinContent, setLinkedinContent] = useState("");
+  const [linkedinImage, setLinkedinImage] = useState("");
   const [tweetContent, setTweetContent] = useState("");
   const [linkedinCopy, setLinkedinCopy] = useState(false);
   const [tweetCopy, setTweetCopy] = useState(false);
@@ -22,7 +21,7 @@ function App() {
   ));
   const openModal = (index) => {
     console.log("articleData: ", articleData[index].content)
-    fetch('http://localhost:5000/api/getLinkedin', {
+    fetch('http://74.208.61.158:5000/api/getLinkedin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -33,7 +32,8 @@ function App() {
       .then(data => {
         console.log("response data: ", data);
         setLinkedinContent(data?.content);
-        fetch('http://localhost:5000/api/getTwitter', {
+        setLinkedinImage(data?.image[0]?.url);
+        fetch('http://74.208.61.158:5000/api/getTwitter', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -81,7 +81,7 @@ function App() {
       .then(text => {
         // Parse the CSV data
         // You can use a library like PapaParse for more complex CSV parsing
-        if (text[0] == "<") return;
+        if (text[0] === "<") return;
         const rows = JSON.parse(text);
         setArticleData(rows);
         console.log("row: ", rows);
@@ -109,7 +109,7 @@ function App() {
           <div className='flex flex-col items-start justify-between'>
             <div className='article-title'>When will the first general AI system be devised, tested, and publicly announced?</div>
             <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one....</div>
-            <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' className='article-link' target='_blank'>Read Article</a>
+            <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' rel="noreferrer" className='article-link' target='_blank'>Read Article</a>
           </div>
           <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
         </div>
@@ -118,7 +118,7 @@ function App() {
             <div className='article-title'>Title 2. Video</div>
             <YouTube videoId="grmudb9FQpI" />
             <div className='article-content'>The Field of artificial intelligence (AI) is emerging and evolving faster than ever. Here, we look at some of the major trends in the field ...</div>
-            <a href='https://www.youtube.com/watch?v=grmudb9FQpI' className='article-link' target='_blank'>Watch Video</a>
+            <a href='https://www.youtube.com/watch?v=grmudb9FQpI' rel="noreferrer" className='article-link' target='_blank'>Watch Video</a>
           </div>
           <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
         </div>
@@ -126,10 +126,10 @@ function App() {
           <div className='flex flex-col items-start justify-between'>
             <div className='article-title'>Title 3. Tweet</div>
             <div className='flex items-center'>
-              <img src="./pic.png" className='w-20 h-20 rounded-full border-2 object-cover' />
+              <img src="./pic.png" className='w-20 h-20 rounded-full border-2 object-cover' alt="tweet avatar" />
               <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.....</div>
             </div>
-            <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' className='article-link' target='_blank'>See Tweet</a>
+            <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' rel="noreferrer" className='article-link' target='_blank'>See Tweet</a>
           </div>
           <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
         </div>
@@ -139,7 +139,7 @@ function App() {
             <div className='flex items-center'>
               <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.....</div>
             </div>
-            <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' className='article-link' target='_blank'>See In</a>
+            <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' rel="noreferrer" className='article-link' target='_blank'>See In</a>
           </div>
           <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
         </div>
@@ -149,7 +149,7 @@ function App() {
               <div className='flex flex-col items-start justify-between'>
                 <div className='article-title'>{data.title}</div>
                 <div className='article-content'>{data.content}</div>
-                <a href={data.link} className='article-link' target='_blank'>Read Article</a>
+                <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
               </div>
               <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openModal(index)}>⭐</Button>
             </div>
@@ -219,7 +219,7 @@ function App() {
                                 </CopyToClipboard>
                               </div>
                             </div>
-                            <div className='border flex w-1/4' style={{ backgroundImage: `url("./pic.png")`, backgroundSize: "cover", backgroundRepeat: 'no-repeat' }}>
+                            <div className='border flex w-1/4' style={{ backgroundImage: "url(" + linkedinImage + ")", backgroundSize: "cover", backgroundRepeat: 'no-repeat' }}>
                             </div>
                           </div>
 
@@ -237,7 +237,7 @@ function App() {
                           <div className='flex'>
                             <div className='border flex w-3/4 mr-2 p-2'>
                               <div className='flex items-center'>
-                                <img src="./pic.png" className='w-20 h-20 rounded-full border-2 mr-2 object-cover' />
+                                <img src="./pic.png" className='w-20 h-20 rounded-full border-2 mr-2 object-cover' alt="tweet avatar"/>
                                 <p className="text-sm text-gray-500 w-11/12">
                                   {tweetContent}
                                 </p>
