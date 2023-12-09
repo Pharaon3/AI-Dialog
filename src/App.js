@@ -160,7 +160,7 @@ function App() {
         <div>
           <div className='page-title'>AI News Web Scraper</div>
         </div>
-        <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
+        {/* <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
           <div className='flex flex-col items-start justify-between'>
             <div className='article-title'>When will the first general AI system be devised, tested, and publicly announced?</div>
             <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one....</div>
@@ -197,7 +197,7 @@ function App() {
             <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' rel="noreferrer" className='article-link' target='_blank'>See In</a>
           </div>
           <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
-        </div>
+        </div> */}
         {youtubeData.map((data, index) => {
           return (
             <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"youtube-" + index}>
