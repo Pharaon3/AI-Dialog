@@ -14,12 +14,16 @@ function App() {
   const [tweetContent, setTweetContent] = useState("");
   const [linkedinCopy, setLinkedinCopy] = useState(false);
   const [tweetCopy, setTweetCopy] = useState(false);
+  const [open, setOpen] = useState(false)
+  const cancelButtonRef = useRef(null)
+  const [articleData, setArticleData] = useState([]);
+  const [youtubeData, setYoutubeData] = useState([]);
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
     <button className="example-custom-input bg-sky-300 p-2 rounded-full shadow-lg" onClick={onClick} ref={ref}>
       {value}
     </button>
   ));
-  const openModal = (index) => {
+  const openArticleModal = (index) => {
     console.log("articleData: ", articleData[index].content)
     fetch('http://74.208.61.158:5000/api/getLinkedin', {
       method: 'POST',
@@ -59,6 +63,46 @@ function App() {
         setOpen(true);
       });
   };
+  const openYoutubeModal = (index) => {
+    console.log("articleData: ", youtubeData[index].label)
+    fetch('http://74.208.61.158:5000/api/getLinkedin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ "title": youtubeData[index].title, "content": youtubeData[index].label })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("response data: ", data);
+        setLinkedinContent(data?.content);
+        setLinkedinImage(data?.image[0]?.url);
+        fetch('http://74.208.61.158:5000/api/getTwitter', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ "title": youtubeData[index].title, "content": youtubeData[index].label })
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log("response data: ", data);
+            setTweetContent(data?.content);
+            setOpen(true);
+          })
+          .catch(error => {
+            // Handle any errors
+            setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
+            setOpen(true);
+          });
+      })
+      .catch(error => {
+        // Handle any errors
+        setLinkedinContent("This is Linkedin content. There's a problem connecting backend or openai to generate Linkedin Post content.");
+        setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
+        setOpen(true);
+      });
+  };
   function copyLinkedin() {
     setLinkedinCopy(true);
     setTimeout(() => {
@@ -71,9 +115,6 @@ function App() {
       setTweetCopy(false);
     }, 5000);
   }
-  const [open, setOpen] = useState(false)
-  const cancelButtonRef = useRef(null)
-  const [articleData, setArticleData] = useState([]);
 
   useEffect(() => {
     fetch('./aiPrediction.json')
@@ -85,6 +126,14 @@ function App() {
         const rows = JSON.parse(text);
         setArticleData(rows);
         console.log("row: ", rows);
+      });
+
+    fetch('./scaned youtube.json')
+      .then(response => response.text())
+      .then(text => {
+        if (text[0] === "<") return;
+        const rows = JSON.parse(text);
+        setYoutubeData(rows);
       });
 
   }, []);
@@ -111,7 +160,7 @@ function App() {
             <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one....</div>
             <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' rel="noreferrer" className='article-link' target='_blank'>Read Article</a>
           </div>
-          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
+          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openArticleModal}>⭐</Button>
         </div>
         <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
           <div className='flex flex-col items-start justify-between'>
@@ -120,7 +169,7 @@ function App() {
             <div className='article-content'>The Field of artificial intelligence (AI) is emerging and evolving faster than ever. Here, we look at some of the major trends in the field ...</div>
             <a href='https://www.youtube.com/watch?v=grmudb9FQpI' rel="noreferrer" className='article-link' target='_blank'>Watch Video</a>
           </div>
-          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
+          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openArticleModal}>⭐</Button>
         </div>
         <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
           <div className='flex flex-col items-start justify-between'>
@@ -131,7 +180,7 @@ function App() {
             </div>
             <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' rel="noreferrer" className='article-link' target='_blank'>See Tweet</a>
           </div>
-          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
+          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openArticleModal}>⭐</Button>
         </div>
         <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
           <div className='flex flex-col items-start justify-between'>
@@ -141,8 +190,21 @@ function App() {
             </div>
             <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' rel="noreferrer" className='article-link' target='_blank'>See In</a>
           </div>
-          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
+          <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openArticleModal}>⭐</Button>
         </div>
+        {youtubeData.map((data, index) => {
+          return (
+            <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"youtube-" + index}>
+              <div className='flex flex-col items-start justify-between'>
+                <div className='article-title'>{data.title}</div>
+                <YouTube videoId={data.link.split("=")[1]} />
+                <div className='article-content'>{data.label}</div>
+                <a href={data.link} rel="noreferrer" className='article-link' target='_blank'>Watch Video</a>
+              </div>
+              <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openYoutubeModal(index)}>⭐</Button>
+            </div>
+          )
+        })}
         {articleData.map((data, index) => {
           return (
             <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"article-" + index}>
@@ -151,7 +213,7 @@ function App() {
                 <div className='article-content'>{data.content}</div>
                 <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
               </div>
-              <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openModal(index)}>⭐</Button>
+              <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openArticleModal(index)}>⭐</Button>
             </div>
           )
         })}
@@ -237,7 +299,7 @@ function App() {
                           <div className='flex'>
                             <div className='border flex w-3/4 mr-2 p-2'>
                               <div className='flex items-center'>
-                                <img src="./pic.png" className='w-20 h-20 rounded-full border-2 mr-2 object-cover' alt="tweet avatar"/>
+                                <img src="./pic.png" className='w-20 h-20 rounded-full border-2 mr-2 object-cover' alt="tweet avatar" />
                                 <p className="text-sm text-gray-500 w-11/12">
                                   {tweetContent}
                                 </p>
