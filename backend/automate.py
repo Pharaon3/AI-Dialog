@@ -26,32 +26,29 @@ options.add_argument('window-size=1920x1080')
 options.add_argument("disable-gpu")
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
-driver.get("https://zapier.com/blog/all-articles/")
+driver.get("https://automateio.com/blog/")
 time.sleep(3)
 
 current_datetime = datetime.now()
 formatted_datetime = current_datetime.strftime("%Y/%m/%d %H:%M:%S")
 
 outData = []
-elements = driver.find_elements(By.CSS_SELECTOR, "div.css-dhcu7d")
+elements = driver.find_elements(By.CSS_SELECTOR, "div.post-desc-wrapper")
 print(len(elements))
 for c in range(0, len(elements)):
     try:
-        imgSource = elements[c].find_element(By.TAG_NAME, "img").get_attribute('src')
-        link = elements[c].find_elements(By.TAG_NAME, "a")[1].get_attribute('href')
-        # link = elements[c].find_element(By.CSS_SELECTOR, "a.css-5ym87d-Nav__link").get_attribute('href')
-        title = elements[c].find_element(By.CSS_SELECTOR, "p.css-xlmxz8").get_attribute('innerHTML')
-        content = elements[c].find_element(By.CSS_SELECTOR, "p.css-933b07").get_attribute('innerHTML')
+        title = elements[c].find_element(By.CSS_SELECTOR, "h4.entry-title").text
+        titleel = elements[c].find_element(By.CSS_SELECTOR, "h4.entry-title")
+        link = titleel.find_element(By.TAG_NAME, "a").get_attribute('href')
+        content = elements[c].find_element(By.CSS_SELECTOR, "div.post-excerpt").text
         print("link: " + link)
-        print("imgSource: " + imgSource)
         print("title: " + title)
         print("content: " + content)
-        outData.append({"link": link, "imgSource": imgSource, "title": title, "content": content, "time": formatted_datetime})
-        # outData.append({"link": link, "imgSource": imgSource, "time": formatted_datetime})
+        outData.append({"link": link, "title": title, "content": content, "time": formatted_datetime})
     except:
         print("error")
 driver.close()
 
-with open("scaned zapier.json", "w") as file:
+with open("scaned automate.json", "w") as file:
     json.dump(outData, file)
 driver.quit()

@@ -23,6 +23,8 @@ function App() {
   const [youtubeData, setYoutubeData] = useState([]);
   const [deepmindData, setDeepmindData] = useState([]);
   const [zapierData, setZapierData] = useState([]);
+  const [automateData, setAutomateData] = useState([]);
+  const [makeData, setMakeData] = useState([]);
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
     <button className="example-custom-input bg-sky-300 p-2 rounded-full shadow-lg" onClick={onClick} ref={ref}>
       {value}
@@ -166,6 +168,94 @@ function App() {
         setLoading(false);
       });
   };
+  const openAutomateModal = (index) => {
+    setLoading(true);
+    console.log("automateData: ", automateData[index].content)
+    fetch('http://74.208.61.158:5000/api/getLinkedin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ "title": automateData[index].title, "content": automateData[index].content })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("response data: ", data);
+        setLinkedinContent(data?.content);
+        setLinkedinImage(data?.image[0]?.url);
+        fetch('http://74.208.61.158:5000/api/getTwitter', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ "title": automateData[index].title, "content": automateData[index].content })
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log("response data: ", data);
+            setTweetContent(data?.content);
+            setOpen(true);
+            setLoading(false);
+          })
+          .catch(error => {
+            // Handle any errors
+            setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
+            setOpen(true);
+            setLoading(false);
+          });
+      })
+      .catch(error => {
+        // Handle any errors
+        setLinkedinContent("This is Linkedin content. There's a problem connecting backend or openai to generate Linkedin Post content.");
+        setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
+        setOpen(true);
+        setLoading(false);
+      });
+  };
+  const openMakeModal = (index) => {
+    setLoading(true);
+    console.log("automateData: ", makeData[index].content)
+    fetch('http://74.208.61.158:5000/api/getLinkedin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ "title": makeData[index].title, "content": makeData[index].content })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("response data: ", data);
+        setLinkedinContent(data?.content);
+        setLinkedinImage(data?.image[0]?.url);
+        fetch('http://74.208.61.158:5000/api/getTwitter', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ "title": makeData[index].title, "content": makeData[index].content })
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log("response data: ", data);
+            setTweetContent(data?.content);
+            setOpen(true);
+            setLoading(false);
+          })
+          .catch(error => {
+            // Handle any errors
+            setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
+            setOpen(true);
+            setLoading(false);
+          });
+      })
+      .catch(error => {
+        // Handle any errors
+        setLinkedinContent("This is Linkedin content. There's a problem connecting backend or openai to generate Linkedin Post content.");
+        setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
+        setOpen(true);
+        setLoading(false);
+      });
+  };
   const openYoutubeModal = (index) => {
     setLoading(true);
     console.log("articleData: ", youtubeData[index].label)
@@ -267,6 +357,22 @@ function App() {
         setZapierData(rows);
       });
 
+    fetch('./scaned automate.json')
+      .then(response => response.text())
+      .then(text => {
+        if (text[0] === "<") return;
+        const rows = JSON.parse(text);
+        setAutomateData(rows);
+      });
+
+    fetch('./make.json')
+      .then(response => response.text())
+      .then(text => {
+        if (text[0] === "<") return;
+        const rows = JSON.parse(text);
+        setMakeData(rows);
+      });
+
   }, []);
   return (
     <>
@@ -360,6 +466,32 @@ function App() {
                   <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
                 </div>
                 <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openZapierModal(index)}>⭐</Button>
+              </div>
+            )
+          })}
+          {automateData.map((data, index) => {
+            return (
+              <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"deepmind-" + index}>
+                <div className='flex flex-col items-start justify-between'>
+                  <div className='article-title'>{data.title?.replace("&amp;", "")}</div>
+                  {/* <img src={data.imgSource?.split(",")[0].split(" ")[0]} /> */}
+                  <div className='article-content'>{data.content}</div>
+                  <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
+                </div>
+                <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openAutomateModal(index)}>⭐</Button>
+              </div>
+            )
+          })}
+          {makeData.map((data, index) => {
+            return (
+              <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"deepmind-" + index}>
+                <div className='flex flex-col items-start justify-between'>
+                  <div className='article-title'>{data.title?.replace("&amp;", "")}</div>
+                  <img src={data.imgSource?.split(",")[0].split(" ")[0]} />
+                  <div className='article-content'>{data.content.length > 500 ? data.content.substring(0, 500) + "..." : data.content}</div>
+                  <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
+                </div>
+                <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openMakeModal(index)}>⭐</Button>
               </div>
             )
           })}
