@@ -31,7 +31,7 @@ formatted_datetime = current_datetime.strftime("%Y/%m/%d %H:%M:%S")
 
 print("hello")
 links = []
-with open('make1.csv', 'r') as file:
+with open('make2.csv', 'r') as file:
     reader = csv.reader(file)
     for row in reader:
         links.append(row[0])  # Assuming the links are in the first column
