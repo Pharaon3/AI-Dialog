@@ -6,6 +6,8 @@ import { Dialog, Transition } from '@headlessui/react'
 import YouTube from 'react-youtube';
 import "react-datepicker/dist/react-datepicker.css";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import sdwebui from 'node-sd-webui'
+// import { writeFileSync } from 'fs'
 
 function App() {
   const [startDate, setStartDate] = useState(new Date());
@@ -20,6 +22,7 @@ function App() {
   const [articleData, setArticleData] = useState([]);
   const [youtubeData, setYoutubeData] = useState([]);
   const [deepmindData, setDeepmindData] = useState([]);
+  const [zapierData, setZapierData] = useState([]);
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
     <button className="example-custom-input bg-sky-300 p-2 rounded-full shadow-lg" onClick={onClick} ref={ref}>
       {value}
@@ -119,6 +122,50 @@ function App() {
         setLoading(false);
       });
   };
+  const openZapierModal = (index) => {
+    setLoading(true);
+    console.log("zapierData: ", zapierData[index].content)
+    fetch('http://74.208.61.158:5000/api/getLinkedin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ "title": zapierData[index].title, "content": zapierData[index].content })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("response data: ", data);
+        setLinkedinContent(data?.content);
+        setLinkedinImage(data?.image[0]?.url);
+        fetch('http://74.208.61.158:5000/api/getTwitter', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ "title": zapierData[index].title, "content": zapierData[index].content })
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log("response data: ", data);
+            setTweetContent(data?.content);
+            setOpen(true);
+            setLoading(false);
+          })
+          .catch(error => {
+            // Handle any errors
+            setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
+            setOpen(true);
+            setLoading(false);
+          });
+      })
+      .catch(error => {
+        // Handle any errors
+        setLinkedinContent("This is Linkedin content. There's a problem connecting backend or openai to generate Linkedin Post content.");
+        setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
+        setOpen(true);
+        setLoading(false);
+      });
+  };
   const openYoutubeModal = (index) => {
     setLoading(true);
     console.log("articleData: ", youtubeData[index].label)
@@ -176,6 +223,14 @@ function App() {
     }, 5000);
   }
 
+  sdwebui()
+    .txt2img({
+      prompt: 'A photo of a mushroom',
+    })
+    // .then(({ images }) => writeFileSync('./image.png', images[0], 'base64'))
+    .then(({ images }) => console.log("image: ", images[0]))
+    .catch((err) => console.error(err))
+
   useEffect(() => {
     fetch('./aiPrediction.json')
       .then(response => response.text())
@@ -202,6 +257,14 @@ function App() {
         if (text[0] === "<") return;
         const rows = JSON.parse(text);
         setDeepmindData(rows);
+      });
+
+    fetch('./scaned zapier.json')
+      .then(response => response.text())
+      .then(text => {
+        if (text[0] === "<") return;
+        const rows = JSON.parse(text);
+        setZapierData(rows);
       });
 
   }, []);
@@ -287,7 +350,20 @@ function App() {
               </div>
             )
           })}
-          {articleData.map((data, index) => {
+          {zapierData.map((data, index) => {
+            return (
+              <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"deepmind-" + index}>
+                <div className='flex flex-col items-start justify-between'>
+                  <div className='article-title'>{data.title?.replace("&amp;", "")}</div>
+                  <img src={data.imgSource?.split(",")[0].split(" ")[0]} />
+                  <div className='article-content'>{data.content}</div>
+                  <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
+                </div>
+                <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openZapierModal(index)}>⭐</Button>
+              </div>
+            )
+          })}
+          {/* {articleData.map((data, index) => {
             return (
               <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"article-" + index}>
                 <div className='flex flex-col items-start justify-between'>
@@ -298,7 +374,7 @@ function App() {
                 <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openArticleModal(index)}>⭐</Button>
               </div>
             )
-          })}
+          })} */}
         </div>
         <Transition.Root show={open} as={Fragment}>
           <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
