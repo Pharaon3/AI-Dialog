@@ -51,5 +51,3 @@ for link in links:
 with open("make.json", "w") as file:
     json.dump(outData, file)
 driver.quit()
-
-
