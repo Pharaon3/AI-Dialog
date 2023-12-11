@@ -314,14 +314,6 @@ function App() {
     }, 5000);
   }
 
-  sdwebui()
-    .txt2img({
-      prompt: 'A photo of a mushroom',
-    })
-    // .then(({ images }) => writeFileSync('./image.png', images[0], 'base64'))
-    .then(({ images }) => console.log("image: ", images[0]))
-    .catch((err) => console.error(err))
-
   useEffect(() => {
     fetch('./aiPrediction.json')
       .then(response => response.text())
