@@ -126,7 +126,7 @@ function App() {
         </header>
         <div className="flex justify-center flex-col max-w-4xl items-center">
           <div>
-            <div className='page-title'>AI News Web Scraper</div>
+            <div className='page-title'>AI News Scraper</div>
           </div>
           {deepmindData.map((data, index) => {
             if (data?.time?.split(" ")[0] != moment(startDate).format('YYYY/MM/DD')) return;
