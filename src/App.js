@@ -7,10 +7,8 @@ import YouTube from 'react-youtube';
 import "react-datepicker/dist/react-datepicker.css";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 const moment = require('moment');
-require('dotenv').config();
-// import { writeFileSync } from 'fs'
 
-var BACKEND_URL   = process.env.BACKEND_URL;
+var BACKEND_URL = "http://3.238.22.115:5000/api";
 function App() {
   const [startDate, setStartDate] = useState(new Date());
   const [linkedinContent, setLinkedinContent] = useState("");

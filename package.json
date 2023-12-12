@@ -17,6 +17,8 @@
     "node-cron": "^3.0.3",
     "node-sd-webui": "^0.0.8",
     "openai": "^4.20.1",
+    "os": "^0.1.2",
+    "path": "^0.12.7",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-copy-to-clipboard": "^5.1.0",
@@ -51,6 +53,7 @@
     ]
   },
   "devDependencies": {
-    "tailwindcss": "^3.3.6"
+    "tailwindcss": "^3.3.6",
+    "webpack-node-externals": "^3.0.0"
   }
 }
