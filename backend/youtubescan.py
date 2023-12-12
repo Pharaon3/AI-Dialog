@@ -18,12 +18,16 @@ import csv
 from datetime import datetime
 from datetime import date
 import json
+from datetime import datetime
 
 options = webdriver.ChromeOptions()
 # options.add_argument('headless')
 options.add_argument('window-size=1920x1080')
 options.add_argument("disable-gpu")
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+
+current_datetime = datetime.now()
+formatted_datetime = current_datetime.strftime("%Y/%m/%d %H:%M:%S")
 
 links = []
 with open('youtubelinks.csv', 'r') as file:
@@ -43,6 +47,17 @@ for link in links:
         title = elements[c].get_attribute('title')
         outData.append({"link": link, "label": label, "title": title})
         print("link: " + link)
-with open("scaned youtube.json", "w") as file:
-    json.dump(outData, file)
 driver.quit()
+
+with open('../public/scaned youtube.json', 'r') as file:
+    # Load the JSON data from the file
+    origin_data = json.load(file)
+existing_array = origin_data
+for c in range (0, len(outData)):
+    new_object = outData[c]
+    title_exists = any(obj["title"] == new_object["title"] for obj in existing_array)
+    if not title_exists:
+        existing_array.append(new_object)
+with open("../public/scaned youtube.json", "w") as file:
+    json.dump(existing_array, file)
+# driver.quit()

@@ -49,6 +49,15 @@ for c in range(0, len(elements)):
         print("error")
 driver.close()
 
-with open("scaned automate.json", "w") as file:
-    json.dump(outData, file)
-driver.quit()
+with open('../public/scaned automate.json', 'r') as file:
+    # Load the JSON data from the file
+    origin_data = json.load(file)
+existing_array = origin_data
+for c in range (0, len(outData)):
+    new_object = outData[c]
+    title_exists = any(obj["title"] == new_object["title"] for obj in existing_array)
+    if not title_exists:
+        existing_array.append(new_object)
+with open("../public/scaned automate.json", "w") as file:
+    json.dump(existing_array, file)
+# driver.quit()

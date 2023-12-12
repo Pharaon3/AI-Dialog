@@ -358,7 +358,7 @@ function App() {
         setAutomateData(rows);
       });
 
-    fetch('./make.json')
+    fetch('./scaned make.json')
       .then(response => response.text())
       .then(text => {
         if (text[0] === "<") return;

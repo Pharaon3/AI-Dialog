@@ -48,6 +48,19 @@ for link in links:
     print("Content: " + content[0].text)
     outData.append({"title": title[0].text, "content": content[0].text, "link": link, "imgSource": img, "time": formatted_datetime})
     # Use Selenium to interact with the webpage and scrape the data you need
-with open("make.json", "w") as file:
-    json.dump(outData, file)
+# with open("make.json", "w") as file:
+#     json.dump(outData, file)
+# driver.quit()
+
+with open('../public/scaned make.json', 'r') as file:
+    # Load the JSON data from the file
+    origin_data = json.load(file)
+existing_array = origin_data
+for c in range (0, len(outData)):
+    new_object = outData[c]
+    title_exists = any(obj["title"] == new_object["title"] for obj in existing_array)
+    if not title_exists:
+        existing_array.append(new_object)
+with open("../public/scaned make.json", "w") as file:
+    json.dump(existing_array, file)
 driver.quit()
