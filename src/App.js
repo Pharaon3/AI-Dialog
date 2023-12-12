@@ -20,7 +20,6 @@ function App() {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const cancelButtonRef = useRef(null)
-  const [articleData, setArticleData] = useState([]);
   const [youtubeData, setYoutubeData] = useState([]);
   const [deepmindData, setDeepmindData] = useState([]);
   const [zapierData, setZapierData] = useState([]);
@@ -31,59 +30,9 @@ function App() {
       {value}
     </button>
   ));
-  const openModal = () => {
-    setLinkedinContent("Linkedin Content");
-    setLinkedinImage("");
-    setTweetContent("Tweet Content");
-    setOpen(true);
-  };
-  const openArticleModal = (index) => {
-    setLoading(true);
-    console.log("articleData: ", articleData[index].content)
-    fetch('http://74.208.61.158:5000/api/getLinkedin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ "title": articleData[index].title, "content": articleData[index].content })
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log("response data: ", data);
-        setLinkedinContent(data?.content);
-        setLinkedinImage(data?.image[0]?.url);
-        fetch('http://74.208.61.158:5000/api/getTwitter', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ "title": articleData[index].title, "content": articleData[index].content })
-        })
-          .then(response => response.json())
-          .then(data => {
-            console.log("response data: ", data);
-            setTweetContent(data?.content);
-            setOpen(true);
-            setLoading(false);
-          })
-          .catch(error => {
-            // Handle any errors
-            setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
-            setOpen(true);
-            setLoading(false);
-          });
-      })
-      .catch(error => {
-        // Handle any errors
-        setLinkedinContent("This is Linkedin content. There's a problem connecting backend or openai to generate Linkedin Post content.");
-        setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
-        setOpen(true);
-        setLoading(false);
-      });
-  };
   const openDeepmindModal = (index) => {
     setLoading(true);
-    console.log("articleData: ", deepmindData[index].content)
+    console.log("deepmindData: ", deepmindData[index].content)
     fetch('http://74.208.61.158:5000/api/getLinkedin', {
       method: 'POST',
       headers: {
@@ -259,7 +208,7 @@ function App() {
   };
   const openYoutubeModal = (index) => {
     setLoading(true);
-    console.log("articleData: ", youtubeData[index].label)
+    console.log("youtubeData: ", youtubeData[index].label)
     fetch('http://74.208.61.158:5000/api/getLinkedin', {
       method: 'POST',
       headers: {
@@ -315,17 +264,6 @@ function App() {
   }
 
   useEffect(() => {
-    fetch('./aiPrediction.json')
-      .then(response => response.text())
-      .then(text => {
-        // Parse the CSV data
-        // You can use a library like PapaParse for more complex CSV parsing
-        if (text[0] === "<") return;
-        const rows = JSON.parse(text);
-        setArticleData(rows);
-        console.log("row: ", rows);
-      });
-
     fetch('./scaned youtube.json')
       .then(response => response.text())
       .then(text => {
