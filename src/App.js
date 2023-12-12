@@ -6,7 +6,6 @@ import { Dialog, Transition } from '@headlessui/react'
 import YouTube from 'react-youtube';
 import "react-datepicker/dist/react-datepicker.css";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import sdwebui from 'node-sd-webui'
 const moment = require('moment');
 require('dotenv').config();
 // import { writeFileSync } from 'fs'
