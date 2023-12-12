@@ -424,7 +424,7 @@ function App() {
             <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
           </div> */}
           {youtubeData.map((data, index) => {
-            if (data.time.split(" ")[0] != moment(startDate).format('YYYY/MM/DD')) return;
+            if (data?.time?.split(" ")[0] != moment(startDate).format('YYYY/MM/DD')) return;
             return (
               <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"youtube-" + index}>
                 <div className='flex flex-col items-start justify-between'>
@@ -438,7 +438,7 @@ function App() {
             )
           })}
           {deepmindData.map((data, index) => {
-            if (data.time.split(" ")[0] != moment(startDate).format('YYYY/MM/DD')) return;
+            if (data?.time?.split(" ")[0] != moment(startDate).format('YYYY/MM/DD')) return;
             return (
               <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"deepmind-" + index}>
                 <div className='flex flex-col items-start justify-between'>
@@ -452,7 +452,7 @@ function App() {
             )
           })}
           {zapierData.map((data, index) => {
-            if (data.time.split(" ")[0] != moment(startDate).format('YYYY/MM/DD')) return;
+            if (data?.time?.split(" ")[0] != moment(startDate).format('YYYY/MM/DD')) return;
             return (
               <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"deepmind-" + index}>
                 <div className='flex flex-col items-start justify-between'>
@@ -466,7 +466,7 @@ function App() {
             )
           })}
           {automateData.map((data, index) => {
-            if (data.time.split(" ")[0] != moment(startDate).format('YYYY/MM/DD')) return;
+            if (data?.time?.split(" ")[0] != moment(startDate).format('YYYY/MM/DD')) return;
             return (
               <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"deepmind-" + index}>
                 <div className='flex flex-col items-start justify-between'>
@@ -480,7 +480,7 @@ function App() {
             )
           })}
           {makeData.map((data, index) => {
-            if (data.time.split(" ")[0] != moment(startDate).format('YYYY/MM/DD')) return;
+            if (data?.time?.split(" ")[0] != moment(startDate).format('YYYY/MM/DD')) return;
             return (
               <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"deepmind-" + index}>
                 <div className='flex flex-col items-start justify-between'>
