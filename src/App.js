@@ -385,57 +385,20 @@ function App() {
           <div>
             <div className='page-title'>AI News Web Scraper</div>
           </div>
-          {/* <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
-            <div className='flex flex-col items-start justify-between'>
-              <div className='article-title'>When will the first general AI system be devised, tested, and publicly announced?</div>
-              <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one....</div>
-              <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' rel="noreferrer" className='article-link' target='_blank'>Read Article</a>
-            </div>
-            <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
-          </div>
-          <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
-            <div className='flex flex-col items-start justify-between'>
-              <div className='article-title'>Title 2. Video</div>
-              <YouTube videoId="grmudb9FQpI" />
-              <div className='article-content'>The Field of artificial intelligence (AI) is emerging and evolving faster than ever. Here, we look at some of the major trends in the field ...</div>
-              <a href='https://www.youtube.com/watch?v=grmudb9FQpI' rel="noreferrer" className='article-link' target='_blank'>Watch Video</a>
-            </div>
-            <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
-          </div>
-          <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
-            <div className='flex flex-col items-start justify-between'>
-              <div className='article-title'>Title 3. Tweet</div>
-              <div className='flex items-center'>
-                <img src="./pic.png" className='w-20 h-20 rounded-full border-2 object-cover' alt="tweet avatar" />
-                <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.....</div>
-              </div>
-              <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' rel="noreferrer" className='article-link' target='_blank'>See Tweet</a>
-            </div>
-            <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
-          </div>
-          <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between'>
-            <div className='flex flex-col items-start justify-between'>
-              <div className='article-title'>Title 4. Linkedin</div>
-              <div className='flex items-center'>
-                <div className='article-content'>This question is a duplicate of this one with a stronger operationalization for artificial general intelligence, and including robotic capabilities. I will copy relevant parts of that question to this one.....</div>
-              </div>
-              <a href='https://www.metaculus.com/questions/5121/date-of-artificial-general-intelligence/' rel="noreferrer" className='article-link' target='_blank'>See In</a>
-            </div>
-            <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={openModal}>⭐</Button>
-          </div> */}
           {youtubeData.map((data, index) => {
-            if (data?.time?.split(" ")[0] != moment(startDate).format('YYYY/MM/DD')) return;
-            return (
-              <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"youtube-" + index}>
-                <div className='flex flex-col items-start justify-between'>
-                  <div className='article-title'>{data.title}</div>
-                  <YouTube videoId={data.link.split("=")[1]} />
-                  <div className='article-content'>{data.label}</div>
-                  <a href={data.link} rel="noreferrer" className='article-link' target='_blank'>Watch Video</a>
+            if (data?.time?.split(" ")[0] == moment(startDate).format('YYYY/MM/DD')) {
+              return (
+                <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"youtube-" + index}>
+                  <div className='flex flex-col items-start justify-between'>
+                    <div className='article-title'>{data?.title}</div>
+                    <YouTube videoId={data?.link?.split("=")[1]} />
+                    <div className='article-content'>{data?.label}</div>
+                    <a href={data?.link} rel="noreferrer" className='article-link' target='_blank'>Watch Video</a>
+                  </div>
+                  <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openYoutubeModal(index)}>⭐</Button>
                 </div>
-                <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openYoutubeModal(index)}>⭐</Button>
-              </div>
-            )
+              )
+            }
           })}
           {deepmindData.map((data, index) => {
             if (data?.time?.split(" ")[0] != moment(startDate).format('YYYY/MM/DD')) return;
@@ -493,18 +456,6 @@ function App() {
               </div>
             )
           })}
-          {/* {articleData.map((data, index) => {
-            return (
-              <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"article-" + index}>
-                <div className='flex flex-col items-start justify-between'>
-                  <div className='article-title'>{data.title}</div>
-                  <div className='article-content'>{data.content}</div>
-                  <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
-                </div>
-                <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openArticleModal(index)}>⭐</Button>
-              </div>
-            )
-          })} */}
         </div>
         <Transition.Root show={open} as={Fragment}>
           <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
