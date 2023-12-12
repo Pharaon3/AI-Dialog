@@ -29,220 +29,42 @@ function App() {
       {value}
     </button>
   ));
-  const openDeepmindModal = (index) => {
+  const openModal = (sourceData) => {
     setLoading(true);
-    console.log("deepmindData: ", deepmindData[index].content)
+    console.log("dataSource: ", sourceData?.content)
     fetch(BACKEND_URL + '/getLinkedin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ "title": deepmindData[index].title, "content": deepmindData[index].content })
+      body: JSON.stringify({ "title": sourceData?.title, "content": sourceData?.content })
     })
       .then(response => response.json())
       .then(data => {
-        console.log("response data: ", data);
+        console.log("Response from LinkedinPost: ", data);
         setLinkedinContent(data?.content);
-        setLinkedinImage(data?.image[0]?.url);
-        fetch(BACKEND_URL + '/getTwitter', {
+        setLinkedinImage(sourceData?.imgSource ? sourceData?.imgSource : data.image[0].url);
+        fetch(BACKEND_URL + '/getTweet', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ "title": deepmindData[index].title, "content": deepmindData[index].content })
+          body: JSON.stringify({ "title": sourceData?.title, "content": sourceData?.content })
         })
           .then(response => response.json())
           .then(data => {
-            console.log("response data: ", data);
+            console.log("Response from Tweet: ", data);
             setTweetContent(data?.content);
             setOpen(true);
             setLoading(false);
           })
           .catch(error => {
-            // Handle any errors
             setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
             setOpen(true);
             setLoading(false);
           });
       })
       .catch(error => {
-        // Handle any errors
-        setLinkedinContent("This is Linkedin content. There's a problem connecting backend or openai to generate Linkedin Post content.");
-        setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
-        setOpen(true);
-        setLoading(false);
-      });
-  };
-  const openZapierModal = (index) => {
-    setLoading(true);
-    console.log("zapierData: ", zapierData[index].content)
-    fetch(BACKEND_URL + '/getLinkedin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ "title": zapierData[index].title, "content": zapierData[index].content })
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log("response data: ", data);
-        setLinkedinContent(data?.content);
-        setLinkedinImage(data?.image[0]?.url);
-        fetch(BACKEND_URL + '/getTwitter', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ "title": zapierData[index].title, "content": zapierData[index].content })
-        })
-          .then(response => response.json())
-          .then(data => {
-            console.log("response data: ", data);
-            setTweetContent(data?.content);
-            setOpen(true);
-            setLoading(false);
-          })
-          .catch(error => {
-            // Handle any errors
-            setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
-            setOpen(true);
-            setLoading(false);
-          });
-      })
-      .catch(error => {
-        // Handle any errors
-        setLinkedinContent("This is Linkedin content. There's a problem connecting backend or openai to generate Linkedin Post content.");
-        setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
-        setOpen(true);
-        setLoading(false);
-      });
-  };
-  const openAutomateModal = (index) => {
-    setLoading(true);
-    console.log("automateData: ", automateData[index].content)
-    fetch(BACKEND_URL + '/getLinkedin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ "title": automateData[index].title, "content": automateData[index].content })
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log("response data: ", data);
-        setLinkedinContent(data?.content);
-        setLinkedinImage(data?.image[0]?.url);
-        fetch(BACKEND_URL + '/getTwitter', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ "title": automateData[index].title, "content": automateData[index].content })
-        })
-          .then(response => response.json())
-          .then(data => {
-            console.log("response data: ", data);
-            setTweetContent(data?.content);
-            setOpen(true);
-            setLoading(false);
-          })
-          .catch(error => {
-            // Handle any errors
-            setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
-            setOpen(true);
-            setLoading(false);
-          });
-      })
-      .catch(error => {
-        // Handle any errors
-        setLinkedinContent("This is Linkedin content. There's a problem connecting backend or openai to generate Linkedin Post content.");
-        setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
-        setOpen(true);
-        setLoading(false);
-      });
-  };
-  const openMakeModal = (index) => {
-    setLoading(true);
-    console.log("automateData: ", makeData[index].content)
-    fetch(BACKEND_URL + '/getLinkedin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ "title": makeData[index].title, "content": makeData[index].content })
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log("response data: ", data);
-        setLinkedinContent(data?.content);
-        setLinkedinImage(data?.image[0]?.url);
-        fetch(BACKEND_URL + '/getTwitter', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ "title": makeData[index].title, "content": makeData[index].content })
-        })
-          .then(response => response.json())
-          .then(data => {
-            console.log("response data: ", data);
-            setTweetContent(data?.content);
-            setOpen(true);
-            setLoading(false);
-          })
-          .catch(error => {
-            // Handle any errors
-            setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
-            setOpen(true);
-            setLoading(false);
-          });
-      })
-      .catch(error => {
-        // Handle any errors
-        setLinkedinContent("This is Linkedin content. There's a problem connecting backend or openai to generate Linkedin Post content.");
-        setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
-        setOpen(true);
-        setLoading(false);
-      });
-  };
-  const openYoutubeModal = (index) => {
-    setLoading(true);
-    console.log("youtubeData: ", youtubeData[index].label)
-    fetch(BACKEND_URL + '/getLinkedin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ "title": youtubeData[index].title, "content": youtubeData[index].label })
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log("response data: ", data);
-        setLinkedinContent(data?.content);
-        setLinkedinImage(data?.image[0]?.url);
-        fetch(BACKEND_URL + '/getTwitter', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ "title": youtubeData[index].title, "content": youtubeData[index].label })
-        })
-          .then(response => response.json())
-          .then(data => {
-            console.log("response data: ", data);
-            setTweetContent(data?.content);
-            setOpen(true);
-            setLoading(false);
-          })
-          .catch(error => {
-            // Handle any errors
-            setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
-            setOpen(true);
-            setLoading(false);
-          });
-      })
-      .catch(error => {
-        // Handle any errors
         setLinkedinContent("This is Linkedin content. There's a problem connecting backend or openai to generate Linkedin Post content.");
         setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
         setOpen(true);
@@ -261,48 +83,21 @@ function App() {
       setTweetCopy(false);
     }, 5000);
   }
-
+  async function getScanedData(source, setData) {
+    fetch('./scaned ' + source + '.json')
+      .then(response => response.text())
+      .then(text => {
+        if (text[0] === "<") return;
+        const rows = JSON.parse(text);
+        setData(rows);
+      });
+  }
   useEffect(() => {
-    fetch('./scaned youtube.json')
-      .then(response => response.text())
-      .then(text => {
-        if (text[0] === "<") return;
-        const rows = JSON.parse(text);
-        setYoutubeData(rows);
-      });
-
-    fetch('./scaned deepmind google.json')
-      .then(response => response.text())
-      .then(text => {
-        if (text[0] === "<") return;
-        const rows = JSON.parse(text);
-        setDeepmindData(rows);
-      });
-
-    fetch('./scaned zapier.json')
-      .then(response => response.text())
-      .then(text => {
-        if (text[0] === "<") return;
-        const rows = JSON.parse(text);
-        setZapierData(rows);
-      });
-
-    fetch('./scaned automate.json')
-      .then(response => response.text())
-      .then(text => {
-        if (text[0] === "<") return;
-        const rows = JSON.parse(text);
-        setAutomateData(rows);
-      });
-
-    fetch('./scaned make.json')
-      .then(response => response.text())
-      .then(text => {
-        if (text[0] === "<") return;
-        const rows = JSON.parse(text);
-        setMakeData(rows);
-      });
-
+    getScanedData('youtube', setYoutubeData)
+    getScanedData('deepmind google', setDeepmindData)
+    getScanedData('zapier', setZapierData)
+    getScanedData('automate', setAutomateData)
+    getScanedData('make', setMakeData)
   }, []);
   return (
     <>
@@ -322,21 +117,6 @@ function App() {
           <div>
             <div className='page-title'>AI News Web Scraper</div>
           </div>
-          {youtubeData.map((data, index) => {
-            if (data?.time?.split(" ")[0] == moment(startDate).format('YYYY/MM/DD')) {
-              return (
-                <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"youtube-" + index}>
-                  <div className='flex flex-col items-start justify-between'>
-                    <div className='article-title'>{data?.title}</div>
-                    <YouTube videoId={data?.link?.split("=")[1]} />
-                    <div className='article-content'>{data?.label}</div>
-                    <a href={data?.link} rel="noreferrer" className='article-link' target='_blank'>Watch Video</a>
-                  </div>
-                  <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openYoutubeModal(index)}>⭐</Button>
-                </div>
-              )
-            }
-          })}
           {deepmindData.map((data, index) => {
             if (data?.time?.split(" ")[0] != moment(startDate).format('YYYY/MM/DD')) return;
             return (
@@ -347,7 +127,8 @@ function App() {
                   <div className='article-content'>{data.content}</div>
                   <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
                 </div>
-                <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openDeepmindModal(index)}>⭐</Button>
+                <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' 
+                        onClick={() => openModal(data)}>⭐</Button>
               </div>
             )
           })}
@@ -361,7 +142,8 @@ function App() {
                   <div className='article-content'>{data.content}</div>
                   <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
                 </div>
-                <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openZapierModal(index)}>⭐</Button>
+                <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' 
+                        onClick={() => openModal(data)}>⭐</Button>
               </div>
             )
           })}
@@ -375,7 +157,8 @@ function App() {
                   <div className='article-content'>{data.content}</div>
                   <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
                 </div>
-                <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openAutomateModal(index)}>⭐</Button>
+                <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' 
+                        onClick={() => openModal(data)}>⭐</Button>
               </div>
             )
           })}
@@ -389,9 +172,26 @@ function App() {
                   <div className='article-content'>{data.content.length > 500 ? data.content.substring(0, 500) + "..." : data.content}</div>
                   <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
                 </div>
-                <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' onClick={() => openMakeModal(index)}>⭐</Button>
+                <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' 
+                        onClick={() => openModal(data)}>⭐</Button>
               </div>
             )
+          })}
+          {youtubeData.map((data, index) => {
+            if (data?.time?.split(" ")[0] == moment(startDate).format('YYYY/MM/DD')) {
+              return (
+                <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"youtube-" + index}>
+                  <div className='flex flex-col items-start justify-between'>
+                    <div className='article-title'>{data?.title}</div>
+                    <YouTube videoId={data?.link?.split("=")[1]} />
+                    <div className='article-content'>{data?.content}</div>
+                    <a href={data?.link} rel="noreferrer" className='article-link' target='_blank'>Watch Video</a>
+                  </div>
+                  <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded' 
+                          onClick={() => openModal(data)}>⭐</Button>
+                </div>
+              )
+            }
           })}
         </div>
         <Transition.Root show={open} as={Fragment}>
@@ -457,10 +257,9 @@ function App() {
                                   </CopyToClipboard>
                                 </div>
                               </div>
-                              <div className='border flex w-1/4' style={{ backgroundImage: "url(" + linkedinImage + ")", backgroundSize: "cover", backgroundRepeat: 'no-repeat' }}>
+                              <div className='border flex w-1/4' style={{ backgroundImage: "url(" + linkedinImage + ")", backgroundSize: "contain", backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
                               </div>
                             </div>
-
                           </div>
                           <div className="mt-3">
                             <h5 className='flex items-center'>
@@ -495,18 +294,11 @@ function App() {
                     <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                       <button
                         type="button"
-                        className="inline-flex w-full justify-center rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 sm:ml-3 sm:w-auto"
-                        onClick={() => setOpen(false)}
-                      >
-                        Post
-                      </button>
-                      <button
-                        type="button"
                         className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                         onClick={() => setOpen(false)}
                         ref={cancelButtonRef}
                       >
-                        Cancel
+                        Close
                       </button>
                     </div>
                   </Dialog.Panel>

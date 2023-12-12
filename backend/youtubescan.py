@@ -45,7 +45,7 @@ for link in links:
         link = elements[c].get_attribute('href')
         label = elements[c].get_attribute('aria-label')
         title = elements[c].get_attribute('title')
-        outData.append({"link": link, "label": label, "title": title, "time": formatted_datetime})
+        outData.append({"link": link, "content": label, "title": title, "time": formatted_datetime})
         print("link: " + link)
 driver.quit()
 

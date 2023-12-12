@@ -1,1 +1,37 @@
-[{"link": "https://deepmind.google/discover/blog/google-deepmind-at-neurips-2023/", "imgSource": "https://lh3.googleusercontent.com/MDme_Q62zVqvTUs5uwaI3Ggy2rWIujPt2elkusnUuCA4wEo79V9mabIg66j9cr9zMso-LObOVcj6_ZnrgSMUKn6fl52kxOUEjcigXtDZ2UMuosX3-2s=w400-h225-n-nu-rw 1x, https://lh3.googleusercontent.com/MDme_Q62zVqvTUs5uwaI3Ggy2rWIujPt2elkusnUuCA4wEo79V9mabIg66j9cr9zMso-LObOVcj6_ZnrgSMUKn6fl52kxOUEjcigXtDZ2UMuosX3-2s=w800-h450-n-nu-rw 2x", "title": "Google DeepMind at NeurIPS 2023", "content": "The Neural Information Processing Systems (NeurIPS) is the largest artificial intelligence (AI) conference in the world. NeurIPS 2023 will be taking place December 10-16 in New Orleans, USA.Teams...", "time": "2023/12/09 18:34:45"}, {"link": "https://blog.google/technology/ai/google-gemini-ai", "imgSource": "https://lh3.googleusercontent.com/Q0zuCWPmwm3zjORWtYXpWMeRIyQ55zVbcviNcZ-LIFexKaQyL9i9T0TZwHHC_bsvynuW_CkfM6AoLkgw9JTt6GGRRAX2lT2Qx4ekC69vhB11vcj3=w400-h225-n-nu-rw 1x, https://lh3.googleusercontent.com/Q0zuCWPmwm3zjORWtYXpWMeRIyQ55zVbcviNcZ-LIFexKaQyL9i9T0TZwHHC_bsvynuW_CkfM6AoLkgw9JTt6GGRRAX2lT2Qx4ekC69vhB11vcj3=w800-h450-n-nu-rw 2x", "title": "Introducing Gemini: our largest and most capable AI model", "content": "Making AI more helpful for everyone", "time": "2023/12/10 18:34:45"}, {"link": "https://deepmind.google/discover/blog/millions-of-new-materials-discovered-with-deep-learning/", "imgSource": "https://lh3.googleusercontent.com/mq3mFiVHSVuszhJMt-Nz4jckN5qy3cAckEIdNYDPhy8UHjxk4VkGFriqo8sA76teioNQ2fC3qgMH7FJfPc0L5JJPppXiZzHP7Rl3UodlU4IC4TWw=w400-h225-n-nu-rw 1x, https://lh3.googleusercontent.com/mq3mFiVHSVuszhJMt-Nz4jckN5qy3cAckEIdNYDPhy8UHjxk4VkGFriqo8sA76teioNQ2fC3qgMH7FJfPc0L5JJPppXiZzHP7Rl3UodlU4IC4TWw=w800-h450-n-nu-rw 2x", "title": "Millions of new materials discovered with deep learning", "content": "We share the discovery of 2.2 million new crystals  \u2013  equivalent to nearly 800 years\u2019 worth of knowledge. We introduce Graph Networks for Materials Exploration (GNoME), our new deep learning tool...", "time": "2023/12/09 18:34:45"}, {"link": "https://deepmind.google/about/responsibility-safety/", "imgSource": "https://lh3.googleusercontent.com/OkPvii8KHh8AnK4lJITCKYDf8Unr5_jaPAjjF468zwHWQCTAgtwteb7IcQuW3hstG1YNKxhFa1TBfiFWCrkeUWVU6ysB7MfMzE7OPDLvciL4TVrzgQ=w625-h350-n-nu-rw 1x, https://lh3.googleusercontent.com/OkPvii8KHh8AnK4lJITCKYDf8Unr5_jaPAjjF468zwHWQCTAgtwteb7IcQuW3hstG1YNKxhFa1TBfiFWCrkeUWVU6ysB7MfMzE7OPDLvciL4TVrzgQ=w1250-h700-n-nu-rw 2x", "title": "Responsibility &amp; Safety", "content": "We help anticipate a broad spectrum of AI-related risks, explore ways of preventing them from happening, and find ways to address them if they do.", "time": "2023/12/11 18:34:45"}, {"link": "https://ai.google/responsibility/principles/", "imgSource": "https://lh3.googleusercontent.com/1G0Qe-CimP0LgqFJplCxdpDCc9e1fXhFzYdYwkZ4NnUiR-Jc3odWTxm1z0RJBvNKiMOkLMnSDHIXS4nZ0jBRBEIuOLbqdNDS7yPrquyyanIMrQKmCA=w625-h350-n-nu-rw 1x, https://lh3.googleusercontent.com/1G0Qe-CimP0LgqFJplCxdpDCc9e1fXhFzYdYwkZ4NnUiR-Jc3odWTxm1z0RJBvNKiMOkLMnSDHIXS4nZ0jBRBEIuOLbqdNDS7yPrquyyanIMrQKmCA=w1250-h700-n-nu-rw 2x", "title": "AI Principles", "content": "While we are optimistic about the potential of AI, we recognize that advanced technologies can raise important challenges that must be addressed clearly, thoughtfully, and affirmatively.", "time": "2023/12/10 18:34:45"}]
+[
+    {
+        "link": "https://deepmind.google/discover/blog/google-deepmind-at-neurips-2023/",
+        "imgSource": "https://lh3.googleusercontent.com/MDme_Q62zVqvTUs5uwaI3Ggy2rWIujPt2elkusnUuCA4wEo79V9mabIg66j9cr9zMso-LObOVcj6_ZnrgSMUKn6fl52kxOUEjcigXtDZ2UMuosX3-2s=w400-h225-n-nu-rw 1x, https://lh3.googleusercontent.com/MDme_Q62zVqvTUs5uwaI3Ggy2rWIujPt2elkusnUuCA4wEo79V9mabIg66j9cr9zMso-LObOVcj6_ZnrgSMUKn6fl52kxOUEjcigXtDZ2UMuosX3-2s=w800-h450-n-nu-rw 2x",
+        "title": "Google DeepMind at NeurIPS 2023",
+        "content": "The Neural Information Processing Systems (NeurIPS) is the largest artificial intelligence (AI) conference in the world. NeurIPS 2023 will be taking place December 10-16 in New Orleans, USA.Teams...",
+        "time": "2023/12/09 18:34:45"
+    },
+    {
+        "link": "https://blog.google/technology/ai/google-gemini-ai",
+        "imgSource": "https://lh3.googleusercontent.com/Q0zuCWPmwm3zjORWtYXpWMeRIyQ55zVbcviNcZ-LIFexKaQyL9i9T0TZwHHC_bsvynuW_CkfM6AoLkgw9JTt6GGRRAX2lT2Qx4ekC69vhB11vcj3=w400-h225-n-nu-rw 1x, https://lh3.googleusercontent.com/Q0zuCWPmwm3zjORWtYXpWMeRIyQ55zVbcviNcZ-LIFexKaQyL9i9T0TZwHHC_bsvynuW_CkfM6AoLkgw9JTt6GGRRAX2lT2Qx4ekC69vhB11vcj3=w800-h450-n-nu-rw 2x",
+        "title": "Introducing Gemini: our largest and most capable AI model",
+        "content": "Making AI more helpful for everyone",
+        "time": "2023/12/10 18:34:45"
+    },
+    {
+        "link": "https://deepmind.google/discover/blog/millions-of-new-materials-discovered-with-deep-learning/",
+        "imgSource": "https://lh3.googleusercontent.com/mq3mFiVHSVuszhJMt-Nz4jckN5qy3cAckEIdNYDPhy8UHjxk4VkGFriqo8sA76teioNQ2fC3qgMH7FJfPc0L5JJPppXiZzHP7Rl3UodlU4IC4TWw=w400-h225-n-nu-rw 1x, https://lh3.googleusercontent.com/mq3mFiVHSVuszhJMt-Nz4jckN5qy3cAckEIdNYDPhy8UHjxk4VkGFriqo8sA76teioNQ2fC3qgMH7FJfPc0L5JJPppXiZzHP7Rl3UodlU4IC4TWw=w800-h450-n-nu-rw 2x",
+        "title": "Millions of new materials discovered with deep learning",
+        "content": "We share the discovery of 2.2 million new crystals  \u2013  equivalent to nearly 800 years\u2019 worth of knowledge. We introduce Graph Networks for Materials Exploration (GNoME), our new deep learning tool...",
+        "time": "2023/12/09 18:34:45"
+    },
+    {
+        "link": "https://deepmind.google/about/responsibility-safety/",
+        "imgSource": "https://lh3.googleusercontent.com/OkPvii8KHh8AnK4lJITCKYDf8Unr5_jaPAjjF468zwHWQCTAgtwteb7IcQuW3hstG1YNKxhFa1TBfiFWCrkeUWVU6ysB7MfMzE7OPDLvciL4TVrzgQ=w625-h350-n-nu-rw 1x, https://lh3.googleusercontent.com/OkPvii8KHh8AnK4lJITCKYDf8Unr5_jaPAjjF468zwHWQCTAgtwteb7IcQuW3hstG1YNKxhFa1TBfiFWCrkeUWVU6ysB7MfMzE7OPDLvciL4TVrzgQ=w1250-h700-n-nu-rw 2x",
+        "title": "Responsibility &amp; Safety",
+        "content": "We help anticipate a broad spectrum of AI-related risks, explore ways of preventing them from happening, and find ways to address them if they do.",
+        "time": "2023/12/11 18:34:45"
+    },
+    {
+        "link": "https://ai.google/responsibility/principles/",
+        "imgSource": "https://lh3.googleusercontent.com/1G0Qe-CimP0LgqFJplCxdpDCc9e1fXhFzYdYwkZ4NnUiR-Jc3odWTxm1z0RJBvNKiMOkLMnSDHIXS4nZ0jBRBEIuOLbqdNDS7yPrquyyanIMrQKmCA=w625-h350-n-nu-rw 1x, https://lh3.googleusercontent.com/1G0Qe-CimP0LgqFJplCxdpDCc9e1fXhFzYdYwkZ4NnUiR-Jc3odWTxm1z0RJBvNKiMOkLMnSDHIXS4nZ0jBRBEIuOLbqdNDS7yPrquyyanIMrQKmCA=w1250-h700-n-nu-rw 2x",
+        "title": "AI Principles",
+        "content": "While we are optimistic about the potential of AI, we recognize that advanced technologies can raise important challenges that must be addressed clearly, thoughtfully, and affirmatively.",
+        "time": "2023/12/10 18:34:45"
+    }
+]
