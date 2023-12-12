@@ -37,7 +37,7 @@ function App() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ "title": sourceData?.title, "content": sourceData?.content })
+      body: JSON.stringify({ "title": sourceData?.title, "content": sourceData?.content1 ? sourceData?.content1 : sourceData?.content})
     })
       .then(response => response.json())
       .then(data => {
