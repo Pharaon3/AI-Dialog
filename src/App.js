@@ -8,8 +8,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import sdwebui from 'node-sd-webui'
 const moment = require('moment');
+require('dotenv').config();
 // import { writeFileSync } from 'fs'
 
+var BACKEND_URL   = process.env.BACKEND_URL;
 function App() {
   const [startDate, setStartDate] = useState(new Date());
   const [linkedinContent, setLinkedinContent] = useState("");
@@ -33,7 +35,7 @@ function App() {
   const openDeepmindModal = (index) => {
     setLoading(true);
     console.log("deepmindData: ", deepmindData[index].content)
-    fetch('http://74.208.61.158:5000/api/getLinkedin', {
+    fetch(BACKEND_URL + '/getLinkedin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -45,7 +47,7 @@ function App() {
         console.log("response data: ", data);
         setLinkedinContent(data?.content);
         setLinkedinImage(data?.image[0]?.url);
-        fetch('http://74.208.61.158:5000/api/getTwitter', {
+        fetch(BACKEND_URL + '/getTwitter', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -77,7 +79,7 @@ function App() {
   const openZapierModal = (index) => {
     setLoading(true);
     console.log("zapierData: ", zapierData[index].content)
-    fetch('http://74.208.61.158:5000/api/getLinkedin', {
+    fetch(BACKEND_URL + '/getLinkedin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -89,7 +91,7 @@ function App() {
         console.log("response data: ", data);
         setLinkedinContent(data?.content);
         setLinkedinImage(data?.image[0]?.url);
-        fetch('http://74.208.61.158:5000/api/getTwitter', {
+        fetch(BACKEND_URL + '/getTwitter', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -121,7 +123,7 @@ function App() {
   const openAutomateModal = (index) => {
     setLoading(true);
     console.log("automateData: ", automateData[index].content)
-    fetch('http://74.208.61.158:5000/api/getLinkedin', {
+    fetch(BACKEND_URL + '/getLinkedin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -133,7 +135,7 @@ function App() {
         console.log("response data: ", data);
         setLinkedinContent(data?.content);
         setLinkedinImage(data?.image[0]?.url);
-        fetch('http://74.208.61.158:5000/api/getTwitter', {
+        fetch(BACKEND_URL + '/getTwitter', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -165,7 +167,7 @@ function App() {
   const openMakeModal = (index) => {
     setLoading(true);
     console.log("automateData: ", makeData[index].content)
-    fetch('http://74.208.61.158:5000/api/getLinkedin', {
+    fetch(BACKEND_URL + '/getLinkedin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -177,7 +179,7 @@ function App() {
         console.log("response data: ", data);
         setLinkedinContent(data?.content);
         setLinkedinImage(data?.image[0]?.url);
-        fetch('http://74.208.61.158:5000/api/getTwitter', {
+        fetch(BACKEND_URL + '/getTwitter', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -209,7 +211,7 @@ function App() {
   const openYoutubeModal = (index) => {
     setLoading(true);
     console.log("youtubeData: ", youtubeData[index].label)
-    fetch('http://74.208.61.158:5000/api/getLinkedin', {
+    fetch(BACKEND_URL + '/getLinkedin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -221,7 +223,7 @@ function App() {
         console.log("response data: ", data);
         setLinkedinContent(data?.content);
         setLinkedinImage(data?.image[0]?.url);
-        fetch('http://74.208.61.158:5000/api/getTwitter', {
+        fetch(BACKEND_URL + '/getTwitter', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
