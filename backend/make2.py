@@ -44,8 +44,7 @@ for link in links:
     title = driver.find_elements(By.CSS_SELECTOR, "h1.BlogHeader_blogTitle__SfFKR")
     content = driver.find_elements(By.CSS_SELECTOR, "div.BlogContent_bodyContent__2E5zp")
     img = driver.find_elements(By.CSS_SELECTOR, "div.BlogHeader_imageContainer__pojsU")[0].find_element(By.TAG_NAME, "img").get_attribute('src')
-    print("Title: " + title[0].text)
-    print("Content: " + content[0].text)
+    print("link: " + link)
     outData.append({"title": title[0].text, "content": content[0].text, "link": link, "imgSource": img, "time": formatted_datetime})
     # Use Selenium to interact with the webpage and scrape the data you need
 # with open("make.json", "w") as file:

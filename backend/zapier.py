@@ -44,9 +44,6 @@ for c in range(0, len(elements)):
         title = elements[c].find_element(By.CSS_SELECTOR, "p.css-xlmxz8").get_attribute('innerHTML')
         content = elements[c].find_element(By.CSS_SELECTOR, "p.css-933b07").get_attribute('innerHTML')
         print("link: " + link)
-        print("imgSource: " + imgSource)
-        print("title: " + title)
-        print("content: " + content)
         outData.append({"link": link, "imgSource": imgSource, "title": title, "content": content, "time": formatted_datetime})
         # outData.append({"link": link, "imgSource": imgSource, "time": formatted_datetime})
     except:

@@ -41,9 +41,6 @@ for c in range(0, len(elements)):
         title = elements[c].find_element(By.CSS_SELECTOR, "p.glue-headline").get_attribute('innerHTML')
         content = elements[c].find_element(By.CSS_SELECTOR, "p.glue-card__description").get_attribute('innerHTML')
         print("link: " + link)
-        print("source: " + source)
-        print("title: " + title)
-        print("content: " + content)
         outData.append({"link": link, "imgSource": source, "title": title, "content": content, "time": formatted_datetime})
     except:
         print("error")

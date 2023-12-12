@@ -42,8 +42,6 @@ for c in range(0, len(elements)):
         link = titleel.find_element(By.TAG_NAME, "a").get_attribute('href')
         content = elements[c].find_element(By.CSS_SELECTOR, "div.post-excerpt").text
         print("link: " + link)
-        print("title: " + title)
-        print("content: " + content)
         outData.append({"link": link, "title": title, "content": content, "time": formatted_datetime})
     except:
         print("error")
