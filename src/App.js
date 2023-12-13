@@ -14,7 +14,7 @@ var BACKEND_URL = "http://3.238.22.115:5000/api";
 function App() {
   const [startDate, setStartDate] = useState(new Date());
   const [linkedinContent, setLinkedinContent] = useState("");
-  const [linkedinImage, setLinkedinImage] = useState("");
+  const [linkedinImage, setLinkedinImage] = useState([]);
   const [tweetContent, setTweetContent] = useState("");
   const [linkedinCopy, setLinkedinCopy] = useState(false);
   const [tweetCopy, setTweetCopy] = useState(false);
@@ -52,7 +52,9 @@ function App() {
       .then(data => {
         console.log("Response from LinkedinPost: ", data);
         setLinkedinContent(data?.content);
-        setLinkedinImage(sourceData?.imgSource ? sourceData?.imgSource[0] : data.image[0].url);
+        let imgSource = sourceData?.imgSource;
+        imgSource.push(data.image[0].url);
+        setLinkedinImage(imgSource);
         fetch(BACKEND_URL + '/getTweet', {
           method: 'POST',
           headers: {
@@ -83,6 +85,8 @@ function App() {
         setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
         setOpen(true);
         setLoading(false);
+        let imgSource = sourceData?.imgSource;
+        setLinkedinImage(imgSource);
       });
   };
   function copyLinkedin() {
@@ -314,7 +318,12 @@ function App() {
                                   </CopyToClipboard>
                                 </div>
                               </div>
-                              <div className='border flex w-1/4' style={{ backgroundImage: "url(" + linkedinImage + ")", backgroundSize: "contain", backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
+                              <div className='border flex w-1/4 flex-col gap-2 p-1'>
+                                {linkedinImage.map(img => {
+                                  return (
+                                    <img src = {img} className='shadow-sm border-slate-500 rounded-sm border-2 border-solid cursor-pointer'/>
+                                  )
+                                })}
                               </div>
                             </div>
                           </div>
