@@ -38,7 +38,7 @@ with open('tensorflow.json') as file:
 outData = []
 for row in tensorflowdata:
     driver.get(row["link"])
-    time.sleep(3)
+    time.sleep(1)
     title = driver.find_elements(By.CSS_SELECTOR, "div.tensorsite-detail__title")
     content = driver.find_elements(By.CSS_SELECTOR, "div.tensorsite-detail__body")
     imgArray = []
