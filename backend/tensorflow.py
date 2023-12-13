@@ -42,7 +42,7 @@ outData = []
 for link in links:
     driver.get(link)
     time.sleep(3)
-    elements = driver.find_elements(By.CSS_SELECTOR, "a.Article")
+    elements = driver.find_elements(By.CSS_SELECTOR, "a.tensorsite-card__href")
     for c in range(0, len(elements)):
         link = elements[c].get_attribute('href')
         outData.append({"link": link})
