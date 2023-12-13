@@ -37,7 +37,7 @@ with open('tensorflow.json') as file:
     tensorflowdata = json.load(file)
 outData = []
 for row in tensorflowdata:
-    driver.get(row.link)
+    driver.get(row["link"])
     time.sleep(3)
     title = driver.find_elements(By.CSS_SELECTOR, "div.tensorsite-detail__title")
     content = driver.find_elements(By.CSS_SELECTOR, "div.tensorsite-detail__body")
@@ -49,7 +49,7 @@ for row in tensorflowdata:
         # Append the src value to the array
         imgArray.append(src)
     print("link: " + link)
-    outData.append({"title": title[0].text, "content": content[0].text, "link": row.link, "imgSource": imgArray, "time": formatted_datetime})
+    outData.append({"title": title[0].text, "content": content[0].text, "link": row["link"], "imgSource": imgArray, "time": formatted_datetime})
     # Use Selenium to interact with the webpage and scrape the data you need
 # with open("make.json", "w") as file:
 #     json.dump(outData, file)
