@@ -27,6 +27,7 @@ function App() {
   const [automateData, setAutomateData] = useState([]);
   const [makeData, setMakeData] = useState([]);
   const [tensorflowData, setTensorflowData] = useState([]);
+  const [pytorchData, setPytorchData] = useState([]);
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
     <button className="example-custom-input bg-sky-300 p-2 rounded-full shadow-lg" onClick={onClick} ref={ref}>
       {value}
@@ -124,6 +125,7 @@ function App() {
     getScanedData('automate', setAutomateData)
     getScanedData('make', setMakeData)
     getScanedData('tensorflow', setTensorflowData)
+    getScanedData('pytorch', setPytorchData)
   }, []);
   return (
     <>
@@ -203,6 +205,21 @@ function App() {
             )
           })}
           {tensorflowData.map((data, index) => {
+            if (data?.time?.split(" ")[0] != moment(startDate).format('YYYY/MM/DD')) return;
+            return (
+              <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"deepmind-" + index}>
+                <div className='flex flex-col items-start justify-between'>
+                  <div className='article-title'>{data.title?.replace("&amp;", "")}</div>
+                  <img src={data.imgSource[0]} />
+                  <div className='article-content'>{data?.content?.length < 500 && data?.content1 ? data?.content1.substring(0, 500) : data?.content.substring(0, 500)} ...</div>
+                  <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
+                </div>
+                <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded'
+                  onClick={() => openModal(data)}>⭐</Button>
+              </div>
+            )
+          })}
+          {pytorchData.map((data, index) => {
             if (data?.time?.split(" ")[0] != moment(startDate).format('YYYY/MM/DD')) return;
             return (
               <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"deepmind-" + index}>
