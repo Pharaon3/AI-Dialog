@@ -149,7 +149,7 @@ function App() {
               <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"deepmind-" + index}>
                 <div className='flex flex-col items-start justify-between'>
                   <div className='article-title'>{data.title?.replace("&amp;", "")}</div>
-                  <img src={data.imgSource[0] ? data.imgSource[0] : ""} />
+                  <img src={data.imgSource[0] ? data.imgSource[0].split(",")[0] : ""} />
                   <div className='article-content'>{data?.content?.length < 500 && data?.content1 ? data?.content1.substring(0, 500) : data?.content.substring(0, 500)} ...</div>
                   <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
                 </div>
