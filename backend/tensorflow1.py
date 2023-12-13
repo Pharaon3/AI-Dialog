@@ -48,7 +48,6 @@ for row in tensorflowdata:
         src = img_element.get_attribute("src")
         # Append the src value to the array
         imgArray.append(src)
-    print("link: " + link)
     outData.append({"title": title[0].text, "content": content[0].text, "link": row["link"], "imgSource": imgArray, "time": formatted_datetime})
     # Use Selenium to interact with the webpage and scrape the data you need
 # with open("make.json", "w") as file:
