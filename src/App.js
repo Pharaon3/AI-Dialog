@@ -8,7 +8,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 const moment = require('moment');
 
-var BACKEND_URL = "http://3.238.22.115:5000/api";
+var BACKEND_URL = "http://localhost:5000/api";
+// var BACKEND_URL = "http://3.238.22.115:5000/api";
 // var BACKEND_URL = "http://3.72.85.6:5000/api";
 function App() {
   const [startDate, setStartDate] = useState(new Date());
@@ -25,6 +26,7 @@ function App() {
   const [zapierData, setZapierData] = useState([]);
   const [automateData, setAutomateData] = useState([]);
   const [makeData, setMakeData] = useState([]);
+  const [tensorflowData, setTensorflowData] = useState([]);
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
     <button className="example-custom-input bg-sky-300 p-2 rounded-full shadow-lg" onClick={onClick} ref={ref}>
       {value}
@@ -38,28 +40,28 @@ function App() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ 
-        "title": sourceData?.title, 
-        "content": sourceData?.content1 
-                  ? sourceData?.content1?.substring(0, 2000) 
-                  : sourceData?.content?.substring(0, 2000) 
+      body: JSON.stringify({
+        "title": sourceData?.title,
+        "content": sourceData?.content1
+          ? sourceData?.content1?.substring(0, 2000)
+          : sourceData?.content?.substring(0, 2000)
       })
     })
       .then(response => response.json())
       .then(data => {
         console.log("Response from LinkedinPost: ", data);
         setLinkedinContent(data?.content);
-        setLinkedinImage(sourceData?.imgSource ? sourceData?.imgSource : data.image[0].url);
+        setLinkedinImage(sourceData?.imgSource ? sourceData?.imgSource[0] : data.image[0].url);
         fetch(BACKEND_URL + '/getTweet', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ 
-            "title": sourceData?.title, 
-            "content": sourceData?.content1 
-                      ? sourceData?.content1?.substring(0, 2000) 
-                      : sourceData?.content?.substring(0, 2000) 
+          body: JSON.stringify({
+            "title": sourceData?.title,
+            "content": sourceData?.content1
+              ? sourceData?.content1?.substring(0, 2000)
+              : sourceData?.content?.substring(0, 2000)
           })
         })
           .then(response => response.json())
@@ -95,12 +97,24 @@ function App() {
     }, 5000);
   }
   async function getScanedData(source, setData) {
-    fetch('./scaned ' + source + '.json')
-      .then(response => response.text())
-      .then(text => {
-        if (text[0] === "<") return;
-        const rows = JSON.parse(text);
-        setData(rows);
+    fetch(BACKEND_URL + '/getJson', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "title": source,
+        "path": source
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(source, data);
+        setData(data.content)
+      })
+      .catch(error => {
+        setData([]);
+        console.log("getting Json failed ", source);
       });
   }
   useEffect(() => {
@@ -109,6 +123,7 @@ function App() {
     getScanedData('zapier', setZapierData)
     getScanedData('automate', setAutomateData)
     getScanedData('make', setMakeData)
+    getScanedData('tensorflow', setTensorflowData)
   }, []);
   return (
     <>
@@ -134,7 +149,7 @@ function App() {
               <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"deepmind-" + index}>
                 <div className='flex flex-col items-start justify-between'>
                   <div className='article-title'>{data.title?.replace("&amp;", "")}</div>
-                  {/* <img src={data.imgSource?.split(",")[0].split(" ")[0]} /> */}
+                  <img src={data.imgSource[0] ? data.imgSource[0] : ""} />
                   <div className='article-content'>{data?.content?.length < 500 && data?.content1 ? data?.content1.substring(0, 500) : data?.content.substring(0, 500)} ...</div>
                   <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
                 </div>
@@ -149,7 +164,7 @@ function App() {
               <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"deepmind-" + index}>
                 <div className='flex flex-col items-start justify-between'>
                   <div className='article-title'>{data.title?.replace("&amp;", "")}</div>
-                  {/* <img src={data.imgSource?.split(",")[0].split(" ")[0]} /> */}
+                  <img src={data.imgSource[0] ? data.imgSource[0] : ""} />
                   <div className='article-content'>{data?.content?.length < 500 && data?.content1 ? data?.content1.substring(0, 500) : data?.content.substring(0, 500)} ...</div>
                   <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
                 </div>
@@ -164,7 +179,7 @@ function App() {
               <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"deepmind-" + index}>
                 <div className='flex flex-col items-start justify-between'>
                   <div className='article-title'>{data.title?.replace("&amp;", "")}</div>
-                  {/* <img src={data.imgSource?.split(",")[0].split(" ")[0]} /> */}
+                  <img src={data.imgSource[0] ? data.imgSource[0] : ""} />
                   <div className='article-content'>{data?.content?.length < 500 && data?.content1 ? data?.content1.substring(0, 500) : data?.content.substring(0, 500)} ...</div>
                   <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
                 </div>
@@ -179,7 +194,22 @@ function App() {
               <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"deepmind-" + index}>
                 <div className='flex flex-col items-start justify-between'>
                   <div className='article-title'>{data.title?.replace("&amp;", "")}</div>
-                  {/* <img src={data.imgSource?.split(",")[0].split(" ")[0]} /> */}
+                  <img src={data.imgSource[0] ? data.imgSource[0] : ""} />
+                  <div className='article-content'>{data?.content?.length < 500 && data?.content1 ? data?.content1.substring(0, 500) : data?.content.substring(0, 500)} ...</div>
+                  <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
+                </div>
+                <Button className='bg-sky-300 hover:bg-sky-500 active:bg-sky-100 text-blue-700 font-semibold hover:text-white py-1 px-1 hover:border-transparent rounded'
+                  onClick={() => openModal(data)}>⭐</Button>
+              </div>
+            )
+          })}
+          {tensorflowData.map((data, index) => {
+            if (data?.time?.split(" ")[0] != moment(startDate).format('YYYY/MM/DD')) return;
+            return (
+              <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"deepmind-" + index}>
+                <div className='flex flex-col items-start justify-between'>
+                  <div className='article-title'>{data.title?.replace("&amp;", "")}</div>
+                  <img src={data.imgSource[0]} />
                   <div className='article-content'>{data?.content?.length < 500 && data?.content1 ? data?.content1.substring(0, 500) : data?.content.substring(0, 500)} ...</div>
                   <a href={data.link} className='article-link' rel="noreferrer" target='_blank'>Read Article</a>
                 </div>

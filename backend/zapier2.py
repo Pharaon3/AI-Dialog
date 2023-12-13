@@ -52,7 +52,7 @@ for c in range (0, len(links)):
     time.sleep(3)
     content1 = driver.find_elements(By.TAG_NAME, "article")[0].text
     print("link: " + link)
-    outData.append({"title": title, "content": content, "content1": content1, "link": link, "imgSource": imgSource, "time": formatted_datetime})
+    outData.append({"title": title, "content": content, "content1": content1, "link": link, "imgSource": [imgSource], "time": formatted_datetime})
     # Use Selenium to interact with the webpage and scrape the data you need
 # with open("make.json", "w") as file:
 #     json.dump(outData, file)

@@ -40,16 +40,20 @@ driver = webdriver.Chrome()  # Replace with the appropriate webdriver for your b
 outData = []
 for link in links:
     driver.get(link)
-    time.sleep(3)
+    time.sleep(2)
     title = driver.find_elements(By.CSS_SELECTOR, "h1.BlogHeader_blogTitle__SfFKR")
     content = driver.find_elements(By.CSS_SELECTOR, "div.BlogContent_bodyContent__2E5zp")
-    img = driver.find_elements(By.CSS_SELECTOR, "div.BlogHeader_imageContainer__pojsU")[0].find_element(By.TAG_NAME, "img").get_attribute('src')
+    # img = driver.find_elements(By.CSS_SELECTOR, "div.BlogHeader_imageContainer__pojsU")[0].find_element(By.TAG_NAME, "img").get_attribute('src')
+    imgArray = []
+    img = driver.find_element(By.TAG_NAME, "main").find_elements(By.TAG_NAME, "img")
+    for img_element in img:
+        # Get the src attribute value
+        src = img_element.get_attribute('src')
+        # Append the src value to the array
+        if(src[0] == "h"):
+            imgArray.append(src)
     print("link: " + link)
-    outData.append({"title": title[0].text, "content": content[0].text, "link": link, "imgSource": img, "time": formatted_datetime})
-    # Use Selenium to interact with the webpage and scrape the data you need
-# with open("make.json", "w") as file:
-#     json.dump(outData, file)
-# driver.quit()
+    outData.append({"title": title[0].text, "content": content[0].text, "link": link, "imgSource": imgArray, "time": formatted_datetime})
 
 with open('../public/scaned make.json', 'r') as file:
     # Load the JSON data from the file
