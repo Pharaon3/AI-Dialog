@@ -329,7 +329,7 @@ function App() {
                                 </div>
                               </div>
                               <div className='border flex w-1/4 flex-col gap-2 p-1'>
-                                {linkedinImage.map(img => {
+                                {linkedinImage?.map(img => {
                                   return (
                                     <img src={img} className='shadow-sm border-slate-500 rounded-sm border-2 border-solid cursor-pointer' />
                                   )
