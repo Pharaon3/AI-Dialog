@@ -38,7 +38,7 @@ function App() {
     console.log("dataSource: ", sourceData?.content)
     if (sourceData?.linkedin) {
       setLinkedinContent(sourceData?.linkedin);
-      setTweetContent(sourceData?.tweet);
+      setTweetContent(sourceData?.tweet.substring(0, 270));
       let imgSource = sourceData?.imgSource;
       setLinkedinImage(imgSource);
       setOpen(true);
@@ -78,7 +78,7 @@ function App() {
             .then(response => response.json())
             .then(data => {
               console.log("Response from Tweet: ", data);
-              setTweetContent(data?.content);
+              setTweetContent(data?.content.substring(0, 270));
               setOpen(true);
               setLoading(false);
             })
