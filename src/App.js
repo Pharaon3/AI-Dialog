@@ -36,14 +36,14 @@ function App() {
   const openModal = (sourceData) => {
     setLoading(true);
     console.log("dataSource: ", sourceData?.content)
-    if (sourceData?.linkedin) {
-      setLinkedinContent(sourceData?.linkedin);
-      setTweetContent(sourceData?.tweet.substring(0, 280));
-      let imgSource = sourceData?.imgSource;
-      setLinkedinImage(imgSource);
-      setOpen(true);
-      setLoading(false);
-    } else {
+    // if (sourceData?.linkedin) {
+    //   setLinkedinContent(sourceData?.linkedin);
+    //   setTweetContent(sourceData?.tweet.substring(0, 280));
+    //   let imgSource = sourceData?.imgSource;
+    //   setLinkedinImage(imgSource);
+    //   setOpen(true);
+    //   setLoading(false);
+    // } else {
       fetch(BACKEND_URL + '/getLinkedin', {
         method: 'POST',
         headers: {
@@ -96,7 +96,7 @@ function App() {
           setOpen(true);
           setLoading(false);
         });
-    }
+    // }
 
   };
   function copyLinkedin() {
