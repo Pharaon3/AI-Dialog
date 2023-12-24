@@ -52,8 +52,8 @@ function App() {
         body: JSON.stringify({
           "title": sourceData?.title,
           "content": sourceData?.content1
-            ? sourceData?.content1?.substring(0, 2000)
-            : sourceData?.content?.substring(0, 2000)
+            ? sourceData?.content1
+            : sourceData?.content
         })
       })
         .then(response => response.json())
@@ -71,14 +71,14 @@ function App() {
             body: JSON.stringify({
               "title": sourceData?.title,
               "content": sourceData?.content1
-                ? sourceData?.content1?.substring(0, 2000)
-                : sourceData?.content?.substring(0, 2000)
+                ? sourceData?.content1
+                : sourceData?.content
             })
           })
             .then(response => response.json())
             .then(data => {
               console.log("Response from Tweet: ", data);
-              setTweetContent(data?.content.substring(0, 280));
+              setTweetContent(data?.content);
               setOpen(true);
               setLoading(false);
             })
