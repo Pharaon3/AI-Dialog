@@ -60,7 +60,7 @@ function App() {
         .then(data => {
           console.log("Response from LinkedinPost: ", data);
           setLinkedinContent(data?.content);
-          let imgSource = sourceData?.imgSource;
+          let imgSource = sourceData?.imgSource || [];
           imgSource.push(data.image[0].url);
           setLinkedinImage(imgSource);
           fetch(BACKEND_URL + '/getTweet', {
