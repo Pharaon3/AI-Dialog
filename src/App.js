@@ -45,7 +45,7 @@ function App() {
     //   setOpen(true);
     //   setLoading(false);
     // } else {
-      fetch(BACKEND_URL + '/getLinkedin', {
+      fetch(BACKEND_URL + '/getImage', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -54,40 +54,41 @@ function App() {
           "title": sourceData?.title,
           "content": sourceData?.content1
             ? sourceData?.content1
-            : sourceData?.content
+            : sourceData?.content,
+          "imageCount": 3,
         })
       })
         .then(response => response.json())
         .then(data => {
           console.log("Response from LinkedinPost: ", data);
-          setLinkedinContent(data?.content);
+          setLinkedinContent("test");
           let imgSource = sourceData?.imgSource || [];
           imgSource.push(data.image[0].url);
           setLinkedinImage(imgSource);
-          fetch(BACKEND_URL + '/getTweet', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              "title": sourceData?.title,
-              "content": sourceData?.content1
-                ? sourceData?.content1
-                : sourceData?.content
-            })
-          })
-            .then(response => response.json())
-            .then(data => {
-              console.log("Response from Tweet: ", data);
-              setTweetContent(data?.content);
-              setOpen(true);
-              setLoading(false);
-            })
-            .catch(error => {
-              setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
-              setOpen(true);
-              setLoading(false);
-            });
+          // fetch(BACKEND_URL + '/getTweet', {
+          //   method: 'POST',
+          //   headers: {
+          //     'Content-Type': 'application/json'
+          //   },
+          //   body: JSON.stringify({
+          //     "title": sourceData?.title,
+          //     "content": sourceData?.content1
+          //       ? sourceData?.content1
+          //       : sourceData?.content
+          //   })
+          // })
+          //   .then(response => response.json())
+          //   .then(data => {
+          //     console.log("Response from Tweet: ", data);
+          //     setTweetContent(data?.content);
+          //     setOpen(true);
+          //     setLoading(false);
+          //   })
+          //   .catch(error => {
+          //     setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
+          //     setOpen(true);
+          //     setLoading(false);
+          //   });
         })
         .catch(error => {
           setLinkedinContent("This is Linkedin content. There's a problem connecting backend or openai to generate Linkedin Post content.");
@@ -100,6 +101,72 @@ function App() {
     // }
 
   };
+  // const openModal = (sourceData) => {
+  //   setLoading(true);
+  //   console.log("dataSource: ", sourceData?.content)
+  //   // if (sourceData?.linkedin) {
+  //   //   setLinkedinContent(sourceData?.linkedin);
+  //   //   setTweetContent(sourceData?.tweet.substring(0, 280));
+  //   //   let imgSource = sourceData?.imgSource;
+  //   //   setLinkedinImage(imgSource);
+  //   //   setOpen(true);
+  //   //   setLoading(false);
+  //   // } else {
+  //     fetch(BACKEND_URL + '/getLinkedin', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify({
+  //         "title": sourceData?.title,
+  //         "content": sourceData?.content1
+  //           ? sourceData?.content1
+  //           : sourceData?.content
+  //       })
+  //     })
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         console.log("Response from LinkedinPost: ", data);
+  //         setLinkedinContent(data?.content);
+  //         let imgSource = sourceData?.imgSource || [];
+  //         imgSource.push(data.image[0].url);
+  //         setLinkedinImage(imgSource);
+  //         fetch(BACKEND_URL + '/getTweet', {
+  //           method: 'POST',
+  //           headers: {
+  //             'Content-Type': 'application/json'
+  //           },
+  //           body: JSON.stringify({
+  //             "title": sourceData?.title,
+  //             "content": sourceData?.content1
+  //               ? sourceData?.content1
+  //               : sourceData?.content
+  //           })
+  //         })
+  //           .then(response => response.json())
+  //           .then(data => {
+  //             console.log("Response from Tweet: ", data);
+  //             setTweetContent(data?.content);
+  //             setOpen(true);
+  //             setLoading(false);
+  //           })
+  //           .catch(error => {
+  //             setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
+  //             setOpen(true);
+  //             setLoading(false);
+  //           });
+  //       })
+  //       .catch(error => {
+  //         setLinkedinContent("This is Linkedin content. There's a problem connecting backend or openai to generate Linkedin Post content.");
+  //         setTweetContent("This is tweet content. There's a problem connecting backend or openai to generate tweet content.");
+  //         let imgSource = sourceData?.imgSource;
+  //         setLinkedinImage(imgSource);
+  //         setOpen(true);
+  //         setLoading(false);
+  //       });
+  //   // }
+
+  // };
   function copyLinkedin() {
     setLinkedinCopy(true);
     setTimeout(() => {
