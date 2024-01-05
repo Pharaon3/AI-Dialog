@@ -231,7 +231,7 @@ function App() {
             <div className='page-title'>AI News Scraper</div>
           </div>
           {deepmindData.map((data, index) => {
-            if (data?.time?.split(" ")[0] != moment(startDate).format('YYYY/MM/DD')) return;
+            // if (data?.time?.split(" ")[0] != moment(startDate).format('YYYY/MM/DD')) return;
             return (
               <div className='article shadow-xl max-w-3xl mb-4 flex items-start justify-between' key={"deepmind-" + index}>
                 <div className='flex flex-col items-start justify-between'>
